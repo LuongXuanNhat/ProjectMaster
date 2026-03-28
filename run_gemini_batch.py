@@ -41,8 +41,15 @@ def save_data(data, filepath):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 def main():
-    api_key = "AIzaSyCtEHSLUZuzrnFEyeoXPJkuRx4SYksYwiU" 
-    client = genai.Client(api_key=api_key)
+    # CÁCH 1: Xoay vòng (Rotate) API Key
+    # Bạn có thể đăng ký 2-3 acc clone lấy key dán vào đây, code sẽ tự nhảy sang key khác khi 1 key bị limit.
+    api_keys = [
+        "AIzaSyCtEHSLUZuzrnFEyeoXPJkuRx4SYksYwiU",
+        # "DÁN_API_KEY_2_CỦA_BẠN_VÀO_ĐÂY", 
+        # "DÁN_API_KEY_3_CỦA_BẠN_VÀO_ĐÂY"
+    ]
+    current_key_idx = 0
+    client = genai.Client(api_key=api_keys[current_key_idx])
 
     sys_prompt = read_prompt("label_studio_prompt.txt")
     
@@ -94,54 +101,74 @@ def main():
         
         print(f"Đang xử lý batch từ index {batch[0]['index']} đến {batch[-1]['index']} (Kích thước: {len(batch)})...")
         
-        try:
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt,
-                config={
-                    "response_mime_type": "application/json",
-                    "response_schema": BatchReviewAnalysis,
-                    "temperature": 0.1,
-                }
-            )
-            
-            result_json = json.loads(response.text)
-            batch_results = result_json.get("results", [])
-            
-            # Map kết quả lại vào dữ liệu gốc
-            for res in batch_results:
-                original_idx = res.get("original_index")
+        while True:
+            try:
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=prompt,
+                    config={
+                        "response_mime_type": "application/json",
+                        "response_schema": BatchReviewAnalysis,
+                        "temperature": 0.1,
+                    }
+                )
                 
-                # Check for bounds to prevent IndexError if Gemini hallucinates an index
-                if not isinstance(original_idx, int) or original_idx < 0 or original_idx >= len(data_all):
-                    print(f"Bỏ qua kết quả do index không hợp lệ: {original_idx}")
-                    continue
+                result_json = json.loads(response.text)
+                batch_results = result_json.get("results", [])
+                
+                # Map kết quả lại vào dữ liệu gốc
+                for res in batch_results:
+                    original_idx = res.get("original_index")
+                    
+                    # Check for bounds to prevent IndexError if Gemini hallucinates an index
+                    if not isinstance(original_idx, int) or original_idx < 0 or original_idx >= len(data_all):
+                        print(f"Bỏ qua kết quả do index không hợp lệ: {original_idx}")
+                        continue
 
-                # Tìm item gốc tương ứng
-                original_item = data_all[original_idx]
+                    # Tìm item gốc tương ứng
+                    original_item = data_all[original_idx]
+                    
+                    # Tạo bản ghi mới gộp thông tin
+                    labeled_item = {
+                        "index": original_idx,
+                        "original_data": original_item,
+                        "reasoning": res.get("reasoning", ""),
+                        "labels": res.get("labels", [])
+                    }
+                    labeled_data.append(labeled_item)
+                    processed_indices.add(original_idx)
+                    
+                # Lưu liên tục sau mỗi batch để không mất dữ liệu
+                save_data(labeled_data, output_file)
+                print(f" => Thành công! Đã lưu tiến độ ({len(processed_indices)}/{total_reviews}).")
                 
-                # Tạo bản ghi mới gộp thông tin
-                labeled_item = {
-                    "index": original_idx,
-                    "original_data": original_item,
-                    "reasoning": res.get("reasoning", ""),
-                    "labels": res.get("labels", [])
-                }
-                labeled_data.append(labeled_item)
-                processed_indices.add(original_idx)
+                # Sleep một chút để tránh rate limit (20 reqs/phút cho bản Free)
+                time.sleep(3)
+                break  # Thành công thì thoát vòng lặp while để sang batch tiếp theo
                 
-            # Lưu liên tục sau mỗi batch để không mất dữ liệu
-            save_data(labeled_data, output_file)
-            print(f" => Thành công! Đã lưu tiến độ ({len(processed_indices)}/{total_reviews}).")
-            
-            # Sleep một chút để tránh rate limit (có thể bỏ nếu API đủ quota)
-            time.sleep(2)
-            
-        except Exception as e:
-            print(f"Lỗi khi xử lý batch {batch[0]['index']} - {batch[-1]['index']}: {e}")
-            print("Chờ 10s rồi tiếp tục (có thể do rate limit)...")
-            time.sleep(10)
-            # Không break để tiến tục vòng lặp (với batch này chưa được thêm vào processed_indices nên nếu chạy code lại sẽ chạy lại batch này)
+            except Exception as e:
+                error_str = str(e)
+                print(f"Lỗi khi xử lý batch {batch[0]['index']} - {batch[-1]['index']}: {error_str[:300]}...\n")
+                
+                # Bắt lỗi dính Rate Limit (429) hoặc Limit Quota
+                if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
+                    if len(api_keys) > 1:
+                        # Cách giải quyết triệt để 1: Đổi sang key khác chạy luôn không cần đợi
+                        current_key_idx = (current_key_idx + 1) % len(api_keys)
+                        print(f"-> Quá tải! Tự động chuyển qua xài API Key số {current_key_idx + 1}...")
+                        client = genai.Client(api_key=api_keys[current_key_idx])
+                        time.sleep(1)
+                    else:
+                        # Cách giải quyết 2 (Của hiện tại): Đoán đúng số giây cần dừng
+                        import re
+                        match = re.search(r"retry in (\d+\.?\d*)s", error_str)
+                        wait_seconds = int(float(match.group(1))) + 2 if match else 65
+                        
+                        print(f"-> Quá tải (chỉ có 1 key)! Google yêu cầu chờ khôi phục... Đang tự động ngủ {wait_seconds} giây!")
+                        time.sleep(wait_seconds)
+                else:
+                    print("-> Lỗi khác (không phải rate limit). Chờ 10s rồi thử lại vòng lặp...")
+                    time.sleep(10)
             
     print(f"\nHoàn tất! Kết quả được lưu tại {output_file}")
 
