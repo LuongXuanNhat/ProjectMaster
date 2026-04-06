@@ -45,16 +45,16 @@ def main():
     # Bạn có thể đăng ký 2-3 acc clone lấy key dán vào đây, code sẽ tự nhảy sang key khác khi 1 key bị limit.
     api_keys = [
         "AIzaSyCtEHSLUZuzrnFEyeoXPJkuRx4SYksYwiU",
-        # "DÁN_API_KEY_2_CỦA_BẠN_VÀO_ĐÂY", 
-        # "DÁN_API_KEY_3_CỦA_BẠN_VÀO_ĐÂY"
+        "AIzaSyBKYln2X1b27_HEptr8jHSztLSIgpscwwk", 
+        "AIzaSyD8i6h7K55NaoKbWcurFajlHvxNGZJyixg"
     ]
     current_key_idx = 0
     client = genai.Client(api_key=api_keys[current_key_idx])
 
     sys_prompt = read_prompt("label_studio_prompt.txt")
     
-    input_file = "exported_data_02.json"
-    output_file = "labeled_results_batch.json"
+    input_file = "exported_data_04.json"
+    output_file = "labeled_results_batch_04.json"
     
     data_all = load_data(input_file)
     total_reviews = len(data_all)
@@ -105,6 +105,7 @@ def main():
             try:
                 response = client.models.generate_content(
                     model="gemini-2.5-flash",
+                    # model="gemini-3-flash-preview",
                     contents=prompt,
                     config={
                         "response_mime_type": "application/json",
@@ -167,8 +168,8 @@ def main():
                         print(f"-> Quá tải (chỉ có 1 key)! Google yêu cầu chờ khôi phục... Đang tự động ngủ {wait_seconds} giây!")
                         time.sleep(wait_seconds)
                 else:
-                    print("-> Lỗi khác (không phải rate limit). Chờ 10s rồi thử lại vòng lặp...")
-                    time.sleep(10)
+                    print("-> Lỗi khác (không phải rate limit). Chờ 50s rồi thử lại vòng lặp...")
+                    time.sleep(50)
             
     print(f"\nHoàn tất! Kết quả được lưu tại {output_file}")
 
