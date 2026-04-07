@@ -16,6 +16,14 @@ const LABEL_NAMES = [
     "Atmosphere"
 ];
 
+const LABEL_DISPLAY = {
+    "Food quality": "Food quality (Chất lượng thực phẩm/món ăn/ đồ uống)",
+    "Price": "Price (Giá cả)",
+    "Service quality": "Service quality (Chất lượng dịch vụ/phục vụ)",
+    "Hygiene and safety": "Hygiene and safety (Vệ sinh và an toàn)",
+    "Atmosphere": "Atmosphere (Không gian/Bầu không khí)"
+};
+
 // DOM elements
 const fileSelect = document.getElementById('file-select');
 const uiLoading = document.getElementById('loading');
@@ -39,7 +47,7 @@ const btnSave = document.getElementById('btn-save');
 
 async function init() {
     await loadFiles();
-    
+
     fileSelect.addEventListener('change', (e) => {
         const file = e.target.value;
         if (file) {
@@ -60,7 +68,7 @@ async function loadFiles() {
         const res = await fetch('/api/files');
         const json = await res.json();
         state.files = json.files || [];
-        
+
         fileSelect.innerHTML = '<option value="">Select a file...</option>';
         state.files.forEach(f => {
             const opt = document.createElement('option');
@@ -92,7 +100,7 @@ function resetView() {
 async function loadFile(filename) {
     localStorage.setItem('selectedFile', filename);
     state.currentFile = filename;
-    
+
     uiNoData.classList.add('hidden');
     uiCard.classList.add('hidden');
     uiLoading.classList.remove('hidden');
@@ -100,21 +108,21 @@ async function loadFile(filename) {
     try {
         const res = await fetch(`/api/data?file=${encodeURIComponent(filename)}`);
         const json = await res.json();
-        
+
         state.data = json.data || [];
-        
+
         // Restore progress
         const savedIndex = localStorage.getItem(`currentIndex_${filename}`);
         state.currentIndex = savedIndex ? parseInt(savedIndex, 10) : 0;
-        
+
         const savedSkipped = localStorage.getItem(`skippedIndices_${filename}`);
         state.skippedIndices = savedSkipped ? JSON.parse(savedSkipped) : [];
         state.reviewingSkippedIndex = null;
-        
+
         if (state.currentIndex >= state.data.length) {
             state.currentIndex = 0; // reset if out of bounds
         }
-        
+
         renderSkippedList();
         renderCurrentItem();
     } catch (e) {
@@ -128,19 +136,19 @@ async function loadFile(filename) {
 
 function renderSkippedList() {
     elSkippedList.innerHTML = '';
-    
+
     if (state.skippedIndices.length === 0) {
         elSkippedList.innerHTML = '<li class="empty-state">No skipped items</li>';
         return;
     }
-    
+
     state.skippedIndices.forEach((idx) => {
         const li = document.createElement('li');
         li.className = 'skipped-item';
         if (state.reviewingSkippedIndex === idx) {
             li.classList.add('active-review');
         }
-        
+
         const itemData = state.data[idx] || {};
         let titleBlock = 'Unknown';
         if (itemData.original_data) {
@@ -148,10 +156,10 @@ function renderSkippedList() {
         } else if (itemData.title) {
             titleBlock = itemData.title;
         }
-        
+
         li.textContent = `#${idx} - ${titleBlock}`;
         li.title = `Index ${idx}: Click to review again`;
-        
+
         li.onclick = () => {
             state.reviewingSkippedIndex = idx;
             renderSkippedList();
@@ -164,7 +172,7 @@ function renderSkippedList() {
 function updateStats() {
     elReviewed.textContent = state.currentIndex;
     elTotal.textContent = state.data.length;
-    
+
     if (state.data.length > 0) {
         const pct = (state.currentIndex / state.data.length) * 100;
         elProgress.style.width = `${pct}%`;
@@ -175,10 +183,10 @@ function updateStats() {
 
 function renderCurrentItem() {
     updateStats();
-    
+
     const isShowingMain = state.reviewingSkippedIndex === null;
     const itemIndexToRender = isShowingMain ? state.currentIndex : state.reviewingSkippedIndex;
-    
+
     if (!state.data || state.data.length === 0) {
         uiCard.classList.add('hidden');
         uiNoData.classList.remove('hidden');
@@ -194,7 +202,7 @@ function renderCurrentItem() {
 
     const item = state.data[itemIndexToRender];
     if (!item) return;
-    
+
     // Handle both raw and previously labeled schemas
     let title = "No Title";
     let text = "No Text";
@@ -237,20 +245,21 @@ function buildLabels(existingLabels) {
     LABEL_NAMES.forEach((name, idx) => {
         const existing = existingLabels.find(l => l.name === name);
         const value = existing !== undefined ? existing.value : 0.5; // neutral by default
-        
+
         state.currentLabels.push({ name, value });
 
         const row = document.createElement('div');
         row.className = 'label-row';
+        const displayName = LABEL_DISPLAY[name] || name;
         row.innerHTML = `
-            <div class="label-name"><span style="color: var(--text-muted); margin-right: 8px;">[${idx + 1}]</span>${name}</div>
+            <div class="label-name"><span style="color: var(--text-muted); margin-right: 8px;">[${idx + 1}]</span>${displayName}</div>
             <div class="segmented-control" data-idx="${idx}">
                 <button class="segment-btn ${value === 0.0 ? 'active' : ''}" data-val="0.0">Negative</button>
                 <button class="segment-btn ${value === 0.5 ? 'active' : ''}" data-val="0.5">Neutral</button>
                 <button class="segment-btn ${value === 1.0 ? 'active' : ''}" data-val="1.0">Positive</button>
             </div>
         `;
-        
+
         const btns = row.querySelectorAll('.segment-btn');
         btns.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -265,7 +274,7 @@ function buildLabels(existingLabels) {
 
 function setLabelValue(idx, val) {
     state.currentLabels[idx].value = val;
-    
+
     // Update local DOM
     const control = document.querySelector(`.segmented-control[data-idx="${idx}"]`);
     if (control) {
@@ -281,14 +290,14 @@ function cycleLabel(idx) {
     if (currentVal === 0.0) nextVal = 0.5;
     else if (currentVal === 0.5) nextVal = 1.0;
     else if (currentVal === 1.0) nextVal = 0.0;
-    
+
     setLabelValue(idx, nextVal);
 }
 
 function handleGlobalKeydown(e) {
     // If no card is active or loading, ignore
     if (uiCard.classList.contains('hidden') || !uiLoading.classList.contains('hidden')) return;
-    
+
     if (e.key >= '1' && e.key <= '5') {
         const idx = parseInt(e.key) - 1;
         cycleLabel(idx);
@@ -306,7 +315,7 @@ function handlePostActionRemoval() {
         // If we were reviewing a skipped item, remove it from skipped list
         state.skippedIndices = state.skippedIndices.filter(i => i !== state.reviewingSkippedIndex);
         localStorage.setItem(`skippedIndices_${state.currentFile}`, JSON.stringify(state.skippedIndices));
-        
+
         // Go back to main
         state.reviewingSkippedIndex = null;
         renderSkippedList();
@@ -334,14 +343,14 @@ function skipItem() {
         renderCurrentItem();
         return;
     }
-    
+
     handlePostActionRemoval();
 }
 
 async function saveItem() {
     const processIndex = state.reviewingSkippedIndex !== null ? state.reviewingSkippedIndex : state.currentIndex;
     const originalItem = state.data[processIndex];
-    
+
     // Construct payload
     const payload = {
         original_data: originalItem.original_data || {
@@ -366,9 +375,9 @@ async function saveItem() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-        
+
         if (!res.ok) throw new Error("Save request failed");
-        
+
         showToast();
         handlePostActionRemoval();
     } catch (e) {

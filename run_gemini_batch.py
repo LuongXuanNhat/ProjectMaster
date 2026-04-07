@@ -44,7 +44,7 @@ def main():
     # CÁCH 1: Xoay vòng (Rotate) API Key
     # Bạn có thể đăng ký 2-3 acc clone lấy key dán vào đây, code sẽ tự nhảy sang key khác khi 1 key bị limit.
     api_keys = [
-        "AIzaSyCtEHSLUZuzrnFEyeoXPJkuRx4SYksYwiU",
+        "AIzaSyBXAc8bTpgUPAwbPWou4QTfddykZZI4Am8",
         "AIzaSyBKYln2X1b27_HEptr8jHSztLSIgpscwwk", 
         "AIzaSyD8i6h7K55NaoKbWcurFajlHvxNGZJyixg"
     ]
@@ -104,8 +104,8 @@ def main():
         while True:
             try:
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    # model="gemini-3-flash-preview",
+                    # model="gemini-2.5-flash",
+                    model="gemini-3-flash-preview",
                     contents=prompt,
                     config={
                         "response_mime_type": "application/json",

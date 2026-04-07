@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="app-container">
         <!-- Sidebar / Config -->
@@ -16,7 +18,7 @@
                 <i class="fa-solid fa-robot"></i>
                 <h2>AI Review</h2>
             </div>
-            
+
             <div class="config-section">
                 <label for="file-select">Source Data File</label>
                 <div class="select-wrapper">
@@ -63,7 +65,7 @@
                 <div class="spinner"></div>
                 <p>Loading Data...</p>
             </div>
-            
+
             <div id="no-data" class="overlay">
                 <i class="fa-solid fa-folder-open"></i>
                 <p>Please select a file to start reviewing.</p>
@@ -74,7 +76,7 @@
                     <h3 id="item-title">Title Here</h3>
                     <span id="item-date" class="badge">Date</span>
                 </div>
-                
+
                 <div class="card-body">
                     <div class="text-content">
                         <h4>Review Content</h4>
@@ -87,7 +89,7 @@
                     </div>
 
                     <div class="labels-section">
-                        <h4>Sentiments</h4>
+                        <h4>Sentiments (Cảm xúc)</h4>
                         <div class="labels-grid" id="labels-grid">
                             <!-- JS will populate this -->
                         </div>
@@ -111,4 +113,5 @@
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>

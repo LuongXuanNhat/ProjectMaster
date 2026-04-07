@@ -1,0 +1,2575 @@
+[
+  {
+    "original_data": {
+      "publishedAtDate": "2026-03-07",
+      "textTranslated": "Chúng tôi đã có một bữa ăn tuyệt vời! Phục vụ thân thiện, đặc biệt cảm ơn Louis, người đã hỗ trợ chúng tôi rất nhiệt tình. Thực đơn đa dạng với giá cả phải chăng. Tôi chắc chắn sẽ giới thiệu quán này cho mọi người đến uống vài ly!",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Bữa ăn tuyệt vời, phục vụ thân thiện và giá cả phải chăng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 0
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-03-02",
+      "textTranslated": "Tôi chỉ ghé qua Link Bistro để ăn nhẹ và uống nước. Tôi đã thưởng thức món cá hồi hun khói với bánh mì nâu tuyệt vời. Wow wow, cá hồi và bơ là ngon nhất mà tôi từng ăn, được phục vụ bởi Tien và Nam Anh, dịch vụ rất tuyệt vời. Nhất định phải thử món cá hồi hun khói với bánh mì nâu, bạn sẽ không thất vọng đâu, cũng như món salad quinoa, món này cũng rất ngon.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Món ăn rất ngon và dịch vụ tuyệt vời.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 1
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-03-02",
+      "textTranslated": "Chúng tôi vô cùng hài lòng với dịch vụ tận tâm mà Long  Tien đã cung cấp cho chúng tôi.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Khách hàng hài lòng với dịch vụ tận tâm.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 2
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-03-02",
+      "textTranslated": "Bữa ăn tuyệt vời, không gian hoàn hảo và đội ngũ nhân viên xuất sắc! Nan Anh phục vụ tôi và các con với nụ cười tươi tắn và vô cùng chu đáo. Anh ấy cũng đưa ra những lời khuyên tuyệt vời. Chúng tôi đã có khoảng thời gian vui vẻ trọn vẹn, và kỳ nghỉ của chúng tôi hứa hẹn sẽ thật tuyệt vời. Mọi thứ đều tươi ngon và được làm tại nhà.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Bữa ăn tuyệt vời, không gian hoàn hảo và nhân viên xuất sắc, chu đáo.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 3
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-03-01",
+      "textTranslated": "Đồ ăn ngon 100 điểm, bạn Huy Lưu rất đtrai quá tuyệt vời",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Đồ ăn rất ngon và nhân viên phục vụ tuyệt vời.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 4
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-28",
+      "textTranslated": "Chúng tôi đã có một bữa tối tuyệt vời tại nhà hàng của khách sạn và vô cùng ấn tượng từ đầu đến cuối. Món ăn rất tuyệt vời, mỗi món đều được chế biến đẹp mắt và đậm đà hương vị. Điểm nhấn chắc chắn là món mousse sô cô la hun khói, ngon tuyệt vời và khác hẳn với bất cứ thứ gì chúng tôi từng nếm thử trước đây.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Món ăn rất tuyệt vời, được chế biến đẹp mắt và đậm đà hương vị.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 5
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-28",
+      "textTranslated": "Đồ ăn sáng ngon, không gian rất tiện nghi và sạch sẽ. Nhà hàng nằm ngay trong KS Lasiesta - ngay trung tâm Hà Nội nhưng giá cả phải chăng, điều làm mình bất ngờ nhất là KS này trang bị cả máy sấy tóc Dyson cho khách. Nhân viên rất nhiệt tình và dễ mến, nhất là anh Đắc chị Ngân lễ tân và anh Gia Huy phục vụ Bistro - luôn take care gia đình mình rất kĩ. Siêu recommend mng đến La Sieéta và trải nghiệm Link Bistro nhé!",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Đồ ăn sáng ngon, không gian tiện nghi, sạch sẽ, giá cả phải chăng và nhân viên nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 6
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-10",
+      "textTranslated": "Đồ ăn và thức uống ngon, giá cả phải chăng, và nhân viên tuyệt vời! Rất thân thiện, chu đáo và lịch sự. Đó là một điểm cộng lớn cho La Siesta Lakeside! Cảm ơn Louis vì dịch vụ tuyệt vời!!!",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Đồ ăn ngon, giá cả phải chăng và nhân viên phục vụ tuyệt vời, thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 7
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-10",
+      "textTranslated": "Tuyệt vời!!! Cảm ơn rất nhiều về dịch vụ tuyệt vời và món ăn ngon. Hy vọng một ngày nào đó chúng tôi có thể quay lại đây để thưởng thức bữa tối.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Dịch vụ tuyệt vời và món ăn ngon.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 8
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-07",
+      "textTranslated": "Không gian sang trọng tinh tế, nhạc nhẹ nhàng phù hợp ăn tối hẹn hò. Đồ ăn khá ngon, nv phục vụ nhiệt tình",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Không gian sang trọng, đồ ăn ngon và nhân viên phục vụ nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 9
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-06",
+      "textTranslated": "Lần đầu ăn tại đây thấy khá ưng ý về đồ ăn và cách bài trí, nhân viên cũng nhiệt tình, không gian yên tĩnh phù hợp với mình.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Đồ ăn ngon, nhân viên nhiệt tình và không gian yên tĩnh.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 10
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-05",
+      "textTranslated": "Món ăn tuyệt vời với cách trình bày đẹp mắt. Không gian quán rất đẹp và vị trí thuận lợi, nhân viên thì rất thân thiện và chu đáo. Một trải nghiệm ăn uống tuyệt vời  chắc chắn sẽ quay lại!",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Món ăn tuyệt vời, không gian đẹp và nhân viên thân thiện, chu đáo.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 11
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-12-29",
+      "textTranslated": "Dịch vụ tuyệt vời và chất lượng tốt. Cà phê ngon nhất chúng tôi từng uống ở Việt Nam. Chúng tôi chỉ ghé qua để ăn nhẹ... khoai tây chiên nấm truffle và bánh crepe suzette nhất định phải thử!! Rất nên thử. Cảm ơn Tien và Phap vì sự phục vụ của hai bạn!!!!",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Dịch vụ tuyệt vời và đồ ăn, thức uống rất ngon.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 12
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-12-27",
+      "textTranslated": "Đồ ăn ngon, không gian đẹp sang trọng, nhân viên Huy Lưu nhiệt tình chăm sóc tốt. Sẽ quay lại lần nữa",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Đồ ăn ngon, không gian đẹp và nhân viên nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 13
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-12-23",
+      "textTranslated": "Nhà hàng này nằm trong khách sạn La Fiesta gần Hồ Hoàn Kiếm. Tôi vô cùng hài lòng với mọi thứ, từ dịch vụ đến món ăn! Trước hết, nhân viên phục vụ rất thân thiện. Cá nhân tôi khuyên bạn nên đến đây hẹn hò hoặc dẫn bố mẹ đến.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Hài lòng với dịch vụ thân thiện, món ăn ngon và vị trí đẹp.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 14
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-12-21",
+      "textTranslated": "Một trong những khung cảnh đẹp nhất từ quán bar trên tầng thượng này.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Khung cảnh từ quán bar trên tầng thượng rất đẹp.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 15
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-12-18",
+      "textTranslated": "Chúng tôi đã đến đây hai lần và dịch vụ đều tuyệt vời. Thức ăn rất ngon, tôi đã gọi món thịt bò Úc và nó được chế biến hoàn hảo do hai người Úc làm. Cocktail cũng rất tuyệt.\n\nVị trí tuyệt vời và nhân viên rất thân thiện và nhiệt tình.\n\nChúng tôi ngồi ở quầy bar trên tầng thượng với tầm nhìn tuyệt đẹp ra Hồ Hoàn Kiếm.\n\nChắc chắn khuyên bạn nên đến đây.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Dịch vụ tuyệt vời, đồ ăn và cocktail ngon, vị trí và tầm nhìn đẹp.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 16
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-12-17",
+      "textTranslated": "Một trải nghiệm ẩm thực tinh tế đích thực tại Link Bistro, với vị trí tuyệt vời ngay bên hồ Hoàn Kiếm.\n\nNhà hàng tự hào giới thiệu thực đơn thịt bò khô ủ cao cấp, được chế biến tỉ mỉ bởi đầu bếp người Pháp, làm nổi bật kỹ thuật chế biến xuất sắc và hương vị đậm đà.\n\nMón ăn đặc trưng không thể bỏ qua là món Tenderloin Rossini, được chế biến trang nhã ngay tại bàn, mang đến cả vẻ đẹp thị giác và hương vị tuyệt vời. Dịch vụ salad tại bàn tạo thêm nét cổ điển châu Âu và cảm giác cá nhân hóa trong bữa ăn.\n\nBuổi tối kết thúc hoàn hảo với món Flambé Crêpe, ấn tượng cả về hình thức lẫn hương vị.\n\nDịch vụ suốt buổi tối chu đáo và tinh tế, và như một lời cảm ơn chân thành, mỗi thực khách đều được mời một ly đồ uống sau bữa ăn.\n\nRất được khuyến khích cho những dịp đặc biệt và những người yêu thích ẩm thực cao cấp.",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Trải nghiệm ẩm thực tinh tế với món ăn chất lượng cao, vị trí tuyệt vời và dịch vụ chu đáo.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 17
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-12-16",
+      "textTranslated": "Toàn bộ nhân viên khách sạn đều vô cùng tốt bụng và thân thiện, tôi cảm thấy như mình đã kết bạn thật sự trong suốt thời gian lưu trú. Bữa tối cuối cùng, tôi dùng bữa tại sảnh và rất ấn tượng với không khí ấm cúng, món ăn tuyệt vời và dịch vụ xuất sắc. Thật tiếc là chỉ có Hang và Dakwin hỏi tên tôi, nhưng tôi rất biết ơn tất cả các nhân viên. Nếu có dịp quay lại Hà Nội, tôi nhất định sẽ ở lại khách sạn này!!!",
+      "title": "Link Bistro Hanoi Restaurant"
+    },
+    "reasoning": "Nhân viên tốt bụng, thân thiện, không khí ấm cúng, món ăn tuyệt vời và dịch vụ xuất sắc.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 18
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-11-07",
+      "textTranslated": "ngon lắm nha mn để trong nồi đất nên nóng rất lâu cô chủ nhiệt tình",
+      "title": "Bún Bò Huế Thanh Huệ"
+    },
+    "reasoning": "Đồ ăn ngon, giữ nóng tốt và chủ quán nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 19
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-12-28",
+      "textTranslated": "Quán ăn ngon.không gian rộng rãi\nNhân viên nhiệt tình xinh gái",
+      "title": "Điểm Tâm Quán"
+    },
+    "reasoning": "Đồ ăn ngon, không gian rộng rãi và nhân viên nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 20
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-12-28",
+      "textTranslated": "Ngonnn, đồ ăn quá chất lượng! Phục vụ nhiệt tình nha",
+      "title": "Điểm Tâm Quán"
+    },
+    "reasoning": "Đồ ăn chất lượng và phục vụ nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 21
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-12-27",
+      "textTranslated": "Quán ăn ngon, Không gian sạch sẽ. Chủ quán thân thiện",
+      "title": "Điểm Tâm Quán"
+    },
+    "reasoning": "Đồ ăn ngon, không gian sạch sẽ và chủ quán thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 22
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-12-26",
+      "textTranslated": "Không gian thoáng mát,sạch sẽ,phù hợp cho các đoàn và gđ du lịch nghỉ tại nghệ an",
+      "title": "HOTEl TTP"
+    },
+    "reasoning": "Không gian thoáng mát và sạch sẽ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 23
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-09-24",
+      "textTranslated": "Nhà nghỉ giá cả bình dân, sạch sẽ và thoáng mát, thái độ phục vụ nhiệt tình, mình sẽ quay lại ủng hộ thêm lần sau",
+      "title": "Ngọc Hà Hotel"
+    },
+    "reasoning": "Giá cả bình dân, sạch sẽ, thoáng mát và phục vụ nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 29
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-04-25",
+      "textTranslated": "Nhà nghỉ này khá tốt. Khá sạch sẽ. Khăn tắm trắng sạch sẽ. Giá cả phải chăng. Nhưng sàn nhà tắm cũ và bẩn vì không thể lau chùi sạch sẽ.",
+      "title": "Ngọc Hà Hotel"
+    },
+    "reasoning": "Giá cả phải chăng, nhưng sàn nhà tắm cũ và bẩn.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 30
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-12-28",
+      "textTranslated": "Khá đơn giản, và nước nóng hình như không hoạt động. Nhưng mà, phải công nhận là mấy cái bàn phụ kia rất đẹp.",
+      "title": "Ngọc Hà Hotel"
+    },
+    "reasoning": "Nước nóng không hoạt động nhưng bàn phụ đẹp.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 31
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2022-12-19",
+      "textTranslated": "Đây là khách sạn duy nhất trong khu vực mà tôi có thể tìm được. Phòng ốc rất đơn giản, gạch lát phòng tắm không được lau chùi và bám đầy bụi bẩn tích tụ qua nhiều năm. Nệm thì siêu cứng, nhưng tôi vẫn ngủ được.\nGiá rất rẻ, chỉ 200.000 VND một đêm, nhưng tiền nào của nấy.",
+      "title": "Ngọc Hà Hotel"
+    },
+    "reasoning": "Phòng đơn giản, gạch phòng tắm bẩn, nệm cứng, nhưng giá rất rẻ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 32
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2020-01-13",
+      "textTranslated": "Tòa nhà rất cũ, giường cứng và gồ ghề, lại còn gần tiếng còi xe inh ỏi nữa.",
+      "title": "Ngọc Hà Hotel"
+    },
+    "reasoning": "Tòa nhà cũ, giường cứng và ồn ào.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 33
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-08-05",
+      "textTranslated": "Giường tạm được, phòng không có bình siêu tốc, không có điện thoại gọi lễ tân. Nhà vệ sinh thiết bị cũ nước yếu, nước nóng bật theo giờ chứ không có liên tục. Khu vực ăn hơi nóng dù đã bật điều hoà.",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Thiếu tiện nghi, nước yếu, nước nóng không liên tục, thiết bị nhà vệ sinh cũ và khu vực ăn nóng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 35
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-07-11",
+      "textTranslated": "Nhân viên dọn phòng không lịch sự, thái độ, ồn ào, đồ ăn không hợp lý",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Nhân viên dọn phòng không lịch sự, thái độ kém và đồ ăn không hợp lý.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 36
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-06-27",
+      "textTranslated": "Phòng ổn, view biển trực diện các đồ dùng trong phòng đều ok. Tuy nhiên, cống nhà vệ sinh đùn nước lên rất mùi, đồ ăn nhà hàng thì bình thường.",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Phòng có view đẹp nhưng cống nhà vệ sinh có mùi và đồ ăn bình thường.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 38
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-06-06",
+      "textTranslated": "Phòng chất lượng ok, vị trí ngay mặt biển bãi C . Chạy sang đường là tắm được rồi. Gần ks có Bingxu và Yi He Tang uống ok. Chợ đêm cách khoảng 1.5km đi xe điện giá chung là 50k1xe, giá cao hơn khuyên mọi người không đi",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Phòng chất lượng tốt, vị trí đẹp nhưng giá xe điện cao.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 39
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-05-01",
+      "textTranslated": "Phòng sạch sẽ, gọn gàng. Phòng mới, mặt biển giá lại rẻ.\nVị trí tốt, gần quảng trường tối có nhiều chỗ đi bộ lượn lờ, quán xá ăn uống cũng đầy đủ.\nĐồ ăn khách sạn ngon, khá tươi, giá cũng thấp hơn nhiều so với nhà hàng bên ngoài.\nGia đình đi thấy rất ok. Sẽ quay lại.",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Phòng sạch sẽ, mới, có view biển, giá rẻ, vị trí tốt và đồ ăn ngon, tươi, giá cả hợp lý.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 40
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-07-22",
+      "textTranslated": "lúc mình lên thì mất điện k bật được điều hoà nhận phòng 12h đến 5h k có điều hoà\nvào thì thấy phòng bẩn chưa dọn\nphòng mùi\nk sạch sẽ",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Mất điện, không có điều hòa, phòng bẩn, chưa dọn và có mùi.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 41
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-06-30",
+      "textTranslated": "KS vị trí đẹp mặt biển gần phố đi bộ. Chủ nhà thân thiện - ăn ngon. Phòng tiện nghi đẹp, diện tích phòng hơi nhỏ một xíu. Với tôi là ok. Sẽ ủng hộ những lần sau",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Vị trí đẹp, chủ nhà thân thiện, đồ ăn ngon, phòng tiện nghi dù hơi nhỏ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 42
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-06-24",
+      "textTranslated": "Phòng mùi hôi,dịch vụ tệ,bát bẩn mn nên xem xét chọn ks ạ",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Phòng có mùi hôi, dịch vụ tệ và bát bẩn.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 43
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-08-12",
+      "textTranslated": "Vị trí nhìn ra biển rất đẹp, phòng ngủ gọn gàng riêng phòng vệ sinh chưa được sạch lắm. Chủ LS và quản lý rất nhiệt tình, thân thiện.",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Vị trí đẹp, phòng ngủ gọn gàng, chủ và quản lý nhiệt tình nhưng phòng vệ sinh chưa sạch.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 44
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-07-16",
+      "textTranslated": "Đặt phòng trước nhưng khi đến nhận phòng thì bảo không còn phờng ?!!! . Giữa trưa nắng nóng với 1 đống đồ, gần 20 người có cả người già, trẻ em ngồi vạ vật đợi, sau đó KS cũng cho mượn tạm 1 phòng vào ngồi đợi nhưng cuối cùng vẫn phải đi khách sạn khác. Đến từ trước 12h  14h mới có phòng ở ks khác",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Đặt phòng trước nhưng không có phòng, phải chờ đợi và chuyển sang khách sạn khác.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 45
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-07-09",
+      "textTranslated": "Là cơ sở DV có thể lúc này lúc khác mình ở đây 394 23 thấy rất OK đồ ăn ngon và rẻ chủ cũng rất thân thiện với khách,vào mùa du lịch giá cũng hơi căng nhưng cũng không quá cao so với mặt bằng chung đó cũng là lẽ thường\nThấy mọi người đánh giá sao thấp theo mình nghĩ có lẽ chưa khách quan lắm",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Đồ ăn ngon, giá rẻ, chủ thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 46
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-06-19",
+      "textTranslated": "Không có gì ưng cả, đáng nhẽ ra 0 sao mới đc, 1 sao là quá nhiều r",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Khách hàng không hài lòng với tất cả các khía cạnh dịch vụ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 47
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2022-07-27",
+      "textTranslated": "Phòng nhỏ, cách âm không tốt, nhà vs có mùi, dầu gội và sữa tắm trong phòng quá chán, sữa tắm có mùi hôi rất ghê",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Phòng nhỏ, cách âm kém, nhà vệ sinh có mùi và dầu gội, sữa tắm chất lượng kém.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 48
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2022-06-06",
+      "textTranslated": "Tôi đã đặt phòng 4 phòng từ hôm qua nhưng nay đến họ bảo hết phòng rồi. Người nào nhiều tiền hơn trả cho họ thì đc ở. Nói chung xứ mù này cũng chỉ đến thế thôi",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Đặt phòng trước nhưng bị từ chối vì hết phòng, nghi ngờ có sự ưu tiên cho người trả nhiều tiền hơn.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 49
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2021-06-16",
+      "textTranslated": "Khách sạn sạch sẽ, tiện nghi. Nhân viên thân thiện.",
+      "title": "Louis Hotel Sầm Sơn"
+    },
+    "reasoning": "Khách sạn sạch sẽ, tiện nghi tốt và nhân viên thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 50
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-03-09",
+      "textTranslated": "Khách sạn mới, nhân viên thân thiện nhiệt tình. Vị trí trung tâm gần biển",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "Khách sạn mới, vị trí đẹp và nhân viên thân thiện, nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 51
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-11",
+      "textTranslated": "Dịch vụ dọn phòng nhanh chóng, sạch sẽ và gọn gàng.",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "Dịch vụ dọn phòng nhanh chóng, sạch sẽ và gọn gàng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 53
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-11",
+      "textTranslated": "Khách sạn 10 điểm , nhân viên phục vụ rất chu đáo lễ phép . Mình sẽ quay lại nếu có dịp ghé . Chúc bên mình kinh doanh ngày càng thành công hơn nữa",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "Nhân viên phục vụ rất chu đáo và lễ phép.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 54
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-08",
+      "textTranslated": "Tình cờ được bạn trai giới thiệu đến KS này, rất hài lòng vì dịch vụ ở đây",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "Hài lòng về chất lượng dịch vụ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 55
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-08",
+      "textTranslated": "OMG\nView phòng nhìn ra biển quá đẹp, chill buổi tối cực thích.\nPhòng rộng, giường êm, điều hoà mát lạnh, tuyệt vời luôn.\nWifi mạnh, tiện nghi đầy đủ, rất phù hợp cho nghỉ dưỡng.\nNhân viên hỗ trợ nhiệt tình từ lúc check-in đến khi trả phòng.\nDịch vụ dọn phòng nhanh chóng, sạch sẽ và gọn gàng.\nKhông gian yên tĩnh, thích hợp nghỉ dưỡng cho cả gia đình.",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "View đẹp, phòng rộng rãi tiện nghi, wifi mạnh, nhân viên nhiệt tình, dịch vụ dọn phòng nhanh chóng, sạch sẽ và không gian yên tĩnh.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 56
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-05",
+      "textTranslated": "khách sạn mới hiện đại và tinh tế, phòng ốc thoáng mát ok, nvien thân thiện",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "Khách sạn mới, hiện đại, phòng ốc thoáng mát và nhân viên thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 57
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-05",
+      "textTranslated": "Chỗ ở gần nhiều quán ăn ngon và chợ hải sản, thuận tiện lắm.",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "Vị trí thuận tiện gần nhiều quán ăn ngon và chợ hải sản.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 58
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-05",
+      "textTranslated": "Phòng rộng, giường êm, điều hoà mát lạnh, tuyệt vời luôn.",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "Phòng rộng rãi, giường êm và điều hòa mát lạnh.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 59
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-05",
+      "textTranslated": "Mình từng ở nhiều nơi nhưng đây là nơi hài lòng nhất.",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "Khách hàng hài lòng chung về trải nghiệm nhưng không đề cập chi tiết các tiêu chí cụ thể.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 60
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-01-29",
+      "textTranslated": "Phòng rất sạch sẽ và yên tĩnh. Chủ nhà Hoa vô cùng tốt bụng và nhiệt tình giúp đỡ. Rất nên chọn nơi này.",
+      "title": "Khách sạn gió núi"
+    },
+    "reasoning": "Phòng sạch sẽ, yên tĩnh và chủ nhà rất tốt bụng, nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 61
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-04-03",
+      "textTranslated": "Khách sạn ko được vệ sinh thường xuyên, có chút bẩn ở nhà vs và giường",
+      "title": "Khách sạn gió núi"
+    },
+    "reasoning": "Khách sạn không được vệ sinh thường xuyên, có bẩn ở nhà vệ sinh và giường.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 62
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-01-09",
+      "textTranslated": "sạch sẽ thoáng mát đầy đủ tiện nghi\nmình lần nào vào đây công tác cũng đều vào đây",
+      "title": "Khách sạn gió núi"
+    },
+    "reasoning": "Khách sạn sạch sẽ, thoáng mát và đầy đủ tiện nghi.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 63
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-12-09",
+      "textTranslated": "Đây là một điểm dừng chân lý tưởng nếu bạn đang đi ngang qua. Cô lễ tân và gia đình cô ấy rất thân thiện và nhiệt tình giúp đỡ. Cô ấy đã giúp tôi gọi món từ các nhà hàng gần đó, cả hai đều ngon và giá cả phải chăng.",
+      "title": "Khách sạn gió núi"
+    },
+    "reasoning": "Cô lễ tân rất thân thiện và nhiệt tình giúp đỡ khách.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 64
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-10-02",
+      "textTranslated": "Phòng rộng rãi, có tủ treo đồ. Tụi mình du lịch vào thời gian vắng khách nên có mỗi tụi mình lưu trú. Giá phòng 300k cho phòng 2 giường có ban công nhỏ, có tivi nhưng ko có tủ lạnh. Tuy vậy phòng hơi ngộp khi không mở máy lạnh. Nhìn chung phòng ok, với giá rẻ vậy phòng quá tốt.",
+      "title": "Khách sạn gió núi"
+    },
+    "reasoning": "Phòng rộng rãi nhưng hơi ngộp khi không mở máy lạnh. Giá cả phải chăng và được đánh giá là tốt so với giá.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 65
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-01-26",
+      "textTranslated": "Chất lượng phòng kém, phục vụ nhiệt tình, giá cả bình dân",
+      "title": "KS Giao Tế"
+    },
+    "reasoning": "Chất lượng phòng kém nhưng phục vụ nhiệt tình và giá cả bình dân.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 66
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2022-07-17",
+      "textTranslated": "Phòng loại cũ. Giá chấp nhận đc và dịch vụ khá là chu đáo.",
+      "title": "KS Giao Tế"
+    },
+    "reasoning": "Phòng cũ nhưng giá chấp nhận được và dịch vụ khá chu đáo.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 67
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2021-04-16",
+      "textTranslated": "Phòng rộng, ra trải giường trắng nhưng phòng khá cũ, toilet hư hỏng nhiều vệ sinh phòng kém.\nNgõ sau có vài quán ăn vặt quà chiều.",
+      "title": "KS Giao Tế"
+    },
+    "reasoning": "Phòng rộng nhưng cũ, vệ sinh kém và toilet hư hỏng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 68
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2020-07-04",
+      "textTranslated": "KS Giao Tế là ks đời đâu của TX Thái Hoà, nên cũng đã lâu phòng ốc đã cũ nhưng yên tĩnh sạch sẽ, phòng rộng . Môi trương không gian thiên nhiên gần với hàng Cây Me Trăm năm tuổi của thời Pháp trồng.\nKhông gian nhà để xe chưa có.\nBộ phận KH , Lễ Tân chưa chuyên nghiệp...",
+      "title": "KS Giao Tế"
+    },
+    "reasoning": "Phòng ốc cũ nhưng rộng rãi, yên tĩnh và sạch sẽ. Tuy nhiên, không có chỗ để xe và lễ tân chưa chuyên nghiệp.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 69
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2019-12-29",
+      "textTranslated": "Cách phục vụ của nhân viên rất tốt, duòng phòng chăn ga gối sạch sẽ gọn gàng",
+      "title": "KS Giao Tế"
+    },
+    "reasoning": "Nhân viên phục vụ tốt, phòng ốc sạch sẽ gọn gàng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 70
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-27",
+      "textTranslated": "Với khách sạn 2 sao và giá cả như này là quá phù hợp hợp lý rồi, vị trí thì quá đắc địa. Phù hợp cho đi gia đình đi bạn bè trong chuyến nghỉ mát du lịch ngắn ngày",
+      "title": "Khách sạn Vương Hoàn"
+    },
+    "reasoning": "Giá cả hợp lý và vị trí rất đắc địa.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 71
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-27",
+      "textTranslated": "1 mình 1 phòng thoải mái phòng ốc sạch vệ sinh cẩn thận vị trí đẹp rất tiện đi lại trong nội thành và xuống Cửa Lò",
+      "title": "Khách sạn Vương Hoàn"
+    },
+    "reasoning": "Phòng ốc sạch sẽ, vệ sinh cẩn thận, vị trí đẹp và tiện lợi.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 72
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-27",
+      "textTranslated": "Không thể đòi hỏi dịch vụ tốt ở khách sạn 2 sao được nhưng mà nhân viên nhiệt tình, phòng thoáng và vị trí tốt trung tâm",
+      "title": "Khách sạn Vương Hoàn"
+    },
+    "reasoning": "Nhân viên nhiệt tình, phòng thoáng và vị trí tốt.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 73
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-27",
+      "textTranslated": "Phòng đã được cải tạo lại nên cảm giác ở mới hơn và vị trí vẫn luôn thoáng và đẹp rồi.",
+      "title": "Khách sạn Vương Hoàn"
+    },
+    "reasoning": "Phòng đã được cải tạo mới, vị trí thoáng và đẹp.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 74
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2021-02-04",
+      "textTranslated": "Chỉ được vị trí đẹp nhưng chất lượng và dịch vụ quá xuống cấp.",
+      "title": "Khách sạn Vương Hoàn"
+    },
+    "reasoning": "Vị trí đẹp nhưng chất lượng và dịch vụ quá xuống cấp.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 78
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-09-06",
+      "textTranslated": "Nằm ngay trung tâm thị trấn, khách sạn chỉ cách đường chính vài bước chân.\n\nCác phòng sạch sẽ và đầy đủ tiện nghi. Bạn cần bật công tắc nước nóng, vì vậy tốt nhất nên hỏi trước.\n\nChủ khách sạn thân thiện và sẽ giới thiệu cho bạn một số nhà hàng và quán bar tuyệt vời.\n\nKhách sạn yên tĩnh này rất lý tưởng để xua tan mệt mỏi sau chuyến đi.",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Vị trí trung tâm, phòng sạch sẽ, đầy đủ tiện nghi, yên tĩnh và chủ khách sạn thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 88
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2021-08-07",
+      "textTranslated": "Cafe Xứ Nghệ đúng chất nhất, thơm đặc trưng, chỗ ngồi và đậu xe thoải mái",
+      "title": "Khách sạn Vương Hoàn"
+    },
+    "reasoning": "Cafe chất lượng, thơm ngon, chỗ ngồi và chỗ đậu xe thoải mái.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 77
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-09-10",
+      "textTranslated": "Địa điểm tốt nhưng ks đã xuống cấp ở mức dưới trung bình, nên giá cũng trung bình.",
+      "title": "Khách sạn Vương Hoàn"
+    },
+    "reasoning": "Địa điểm tốt nhưng khách sạn đã xuống cấp, giá cả trung bình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 76
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-11-12",
+      "textTranslated": "Đồ ăn ngon, người dân thân thiện và bia lạnh. Nếu bạn không ngại thỉnh thoảng có xương trong thịt, bạn nhất định phải ghé thăm.",
+      "title": "Quán Thiện Gà"
+    },
+    "reasoning": "Đồ ăn ngon và bia lạnh, nhưng thỉnh thoảng có xương trong thịt. Nhân viên thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 80
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-01-13",
+      "textTranslated": "Khách sạn ở vị trí tuyệt vời.\n\nCác phòng rất sạch sẽ và được trang bị đầy đủ.\n\nCảm ơn đội ngũ nhân viên rất chu đáo",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Vị trí tuyệt vời, phòng sạch sẽ, đầy đủ tiện nghi và nhân viên chu đáo.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 82
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-01-04",
+      "textTranslated": "Khách sạn mới\nGiá cả hợp lý. Nhân viên nhiệt tình\nPhòng mới sạch đẹp",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Khách sạn mới, giá cả hợp lý, nhân viên nhiệt tình và phòng mới sạch đẹp.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 83
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-01-18",
+      "textTranslated": "Giá cả rất hợp lý  vòi sen nước ấm  lễ tân thân thiện",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Giá cả hợp lý, có vòi sen nước ấm và lễ tân thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 81
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-11-12",
+      "textTranslated": "Nhà hàng sạch sẽ, ngon miệng và đích thực nhất trong khu vực!",
+      "title": "Quán Thiện Gà"
+    },
+    "reasoning": "Nhà hàng sạch sẽ và đồ ăn ngon miệng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 79
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-01-04",
+      "textTranslated": "Dịch vụ tốt, sạch sẽ, yên tĩnh, nhân viên nhiệt tình, đồ ăn ngon.",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Dịch vụ tốt, sạch sẽ, yên tĩnh, nhân viên nhiệt tình và đồ ăn ngon.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 84
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-12-10",
+      "textTranslated": "Tình cờ tìm thấy khách sạn này khi đang tìm chỗ trú ẩn trong thành phố.\n\nTôi hoàn toàn khuyên bạn nên chọn khách sạn này.\n\nSạch sẽ, thoải mái, yên tĩnh, chủ nhà dễ mến và giá cả rất hợp lý! 300k cho một phòng!",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Khách sạn sạch sẽ, thoải mái, yên tĩnh, chủ nhà dễ mến và giá cả rất hợp lý.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 85
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-18",
+      "textTranslated": "Ks vùng Huyện xa lên chấp nhận tạm. Tuổi ks trắc vài chục năm\nĐược cái nv nhiệt tình",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Khách sạn cũ, ở vùng xa nhưng nhân viên nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 86
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-12",
+      "textTranslated": "Khách sạn tuyệt vời, yên tĩnh và thư giãn. Phòng sạch sẽ và rộng rãi. 300.000 đồng cho một đêm dành cho hai người. Không hối tiếc vì chúng tôi đã có một buổi tối rất tuyệt vời. Nhân viên thân thiện và niềm nở, tôi khuyên bạn nên đến đây!",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Khách sạn yên tĩnh, thư giãn, phòng sạch sẽ, rộng rãi, giá cả hợp lý và nhân viên thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 87
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-09-19",
+      "textTranslated": "Vui đẹp thoáng giá bình dân, phòng cần nâng cấp tý là OK",
+      "title": "Khách sạn Vương Hoàn"
+    },
+    "reasoning": "Không gian vui vẻ, đẹp, thoáng và giá bình dân, nhưng phòng cần nâng cấp.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 75
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-11-29",
+      "textTranslated": "Được che chắn khỏi gió Đông Bắc và thoáng nhìn ra biển, Gia Hưng là ngôi nhà thứ hai của chúng tôi trong suốt hành trình khám phá Việt Nam bằng xe máy. Chặng đường từ Đồng Hới lạnh và ẩm ướt, Vinh thì hơi khắc nghiệt nhưng vẫn rất dễ chịu so với thành phố.\n\nSau khi khám phá Cửa Lò, Justin đã mời tôi ở lại tại Khách sạn KS Gia Hưng Lux.\n\nKhông chỉ sang trọng, mà còn là THIÊN ĐƯỜNG",
+      "title": "Khách sạn Marina Cửa Lò Hotel"
+    },
+    "reasoning": "Khách sạn có vị trí đẹp, sang trọng và mang lại cảm giác thoải mái như thiên đường.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 52
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-09-05",
+      "textTranslated": "Khách sạn sạch sẽ. Tiện nghi bao gồm dầu gội, xà phòng tắm, lược, bàn chải đánh răng, tăm bông, v.v. Khăn tắm cũng được cung cấp. Nếu quý khách ăn bất kỳ món ăn nhẹ nào trong phòng, vui lòng báo cho chúng tôi biết và chúng tôi sẽ thanh toán hóa đơn. Nhân viên thân thiện và sẽ hỗ trợ quý khách đến tận nửa đêm. Chỉ nói tiếng Việt. Giá một đêm cho hai giường là 330.000 đồng.",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Khách sạn sạch sẽ, tiện nghi đầy đủ, nhân viên thân thiện và hỗ trợ tốt. Giá cả được đề cập nhưng không có cảm xúc rõ ràng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 89
+  }
+]
