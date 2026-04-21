@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Data Review - Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .report-container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .report-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .metric-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .metric-card h4 {
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .metric-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 24px;
+        }
+
+        .criteria-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .criteria-card h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .progress-stat {
+            margin-bottom: 16px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar-bg {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .bar-segment {
+            height: 100%;
+        }
+
+        .bar-neg {
+            background: #ef4444;
+        }
+
+        .bar-neu {
+            background: #a8a29e;
+        }
+
+        .bar-pos {
+            background: #22c55e;
+        }
+
+        .legend {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .no-data-msg {
+            color: var(--text-muted);
+            text-align: center;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            color: var(--text-main);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-chart-pie"></i>
+                <h2>Report</h2>
+            </div>
+
+            <a href="/" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Review
+            </a>
+
+            <div class="config-section" style="margin-top: 20px;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Thống kê tỷ lệ các nhãn (0.0, 0.5, 1.0) cho 5 tiêu chí từ file
+                    <br /><code>labeled_results_all_v2.json</code>
+                </p>
+                <button class="btn btn-primary" onclick="loadReport()"
+                    style="width: 100%; margin-top: 16px; justify-content: center;">
+                    <i class="fa-solid fa-rotate-right"></i> Refresh
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="report-container">
+            <div class="report-header">
+                <div>
+                    <h1 class="report-title">Dashboard Thống kê</h1>
+                    <p style="color: var(--text-muted); margin-top: 8px;">Phân bổ các điểm số theo từng tiêu chí đánh
+                        giá</p>
+                </div>
+            </div>
+
+            <div class="metric-cards">
+                <div class="metric-card">
+                    <h4>Tổng số mẫu</h4>
+                    <div class="number" id="total-samples">-</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Số lượng tiêu chí</h4>
+                    <div class="number" id="total-criteria">-</div>
+                </div>
+                <div class="metric-card">
+                    <h4>File Nguồn</h4>
+                    <div class="number" style="font-size: 1rem; margin-top: 12px; word-break: break-all;">
+                        labeled_results_all_v2.json</div>
+                </div>
+            </div>
+
+            <div class="chart-grid" id="chart-grid">
+                <div class="no-data-msg">Đang tải dữ liệu báo cáo...</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function loadReport()
+        {
+            const grid = document.getElementById('chart-grid');
+            grid.innerHTML = '<div class="no-data-msg"><i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...</div>';
+
+            try
+            {
+                const response = await fetch('/api/report_data');
+                const result = await response.json();
+
+                if (!response.ok || !result.success)
+                {
+                    throw new Error(result.error || 'Failed to load custom data');
+                }
+
+                document.getElementById('total-samples').innerText = result.total_items;
+                document.getElementById('total-criteria').innerText = result.data.length;
+
+                grid.innerHTML = '';
+
+                result.data.forEach(item =>
+                {
+                    const card = document.createElement('div');
+                    card.className = 'criteria-card';
+                    card.innerHTML = `
+                        <h3>
+                            ${item.criteria} 
+                            <span class="badge" style="font-weight: 400">${item.total} items</span>
+                        </h3>
+                        
+                        <div class="progress-stat">
+                            <div class="progress-info">
+                                <span>Tiêu cực (0.0): <b>${item['0.0_percent']}%</b></span>
+                                <span>${item['0.0_count']}</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="bar-segment bar-neg" style="width: ${item['0.0_percent']}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-stat">
+                            <div class="progress-info">
+                                <span>Trung tính (0.5): <b>${item['0.5_percent']}%</b></span>
+                                <span>${item['0.5_count']}</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="bar-segment bar-neu" style="width: ${item['0.5_percent']}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-stat">
+                            <div class="progress-info">
+                                <span>Tích cực (1.0): <b>${item['1.0_percent']}%</b></span>
+                                <span>${item['1.0_count']}</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="bar-segment bar-pos" style="width: ${item['1.0_percent']}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="legend">
+                            <div class="legend-item"><div class="legend-dot bar-neg"></div> 0.0</div>
+                            <div class="legend-item"><div class="legend-dot bar-neu"></div> 0.5</div>
+                            <div class="legend-item"><div class="legend-dot bar-pos"></div> 1.0 (2.0)</div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+            } catch (err)
+            {
+                console.error(err);
+                grid.innerHTML = `<div class="no-data-msg" style="color: #ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> Lỗi: ${err.message}</div>`;
+            }
+        }
+
+        // Init load
+        loadReport();
+    </script>
+</body>
+
+</html>

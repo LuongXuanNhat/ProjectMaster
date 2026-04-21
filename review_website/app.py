@@ -16,6 +16,56 @@ TARGET_SAVE_FILE = os.path.join(CENSORED_DIR, "data_traning_offical.json")
 def index():
     return render_template('index.html')
 
+@app.route('/report')
+def report():
+    return render_template('report.html')
+
+@app.route('/api/report_data', methods=['GET'])
+def get_report_data():
+    filename = "labeled_results_all_v2.json"
+    filepath = os.path.join(MASTER_DIR, filename)
+    if not os.path.exists(filepath):
+        return jsonify({"error": f"File not found: {filename}"}), 404
+        
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            
+        stats = {}
+        for item in data:
+            labels = item.get("labels", [])
+            for label in labels:
+                name = label.get("name")
+                value = label.get("value")
+                
+                if name not in stats:
+                    stats[name] = {"0.0": 0, "0.5": 0, "1.0": 0, "total": 0}
+                
+                val_str = str(value)
+                if val_str in stats[name]:
+                    stats[name][val_str] += 1
+                stats[name]["total"] += 1
+                
+        # Tính tỷ lệ
+        report_result = []
+        for name, item_stats in stats.items():
+            total = item_stats["total"]
+            if total > 0:
+                report_result.append({
+                    "criteria": name,
+                    "0.0_count": item_stats["0.0"],
+                    "0.0_percent": round((item_stats["0.0"] / total) * 100, 2),
+                    "0.5_count": item_stats["0.5"],
+                    "0.5_percent": round((item_stats["0.5"] / total) * 100, 2),
+                    "1.0_count": item_stats["1.0"],
+                    "1.0_percent": round((item_stats["1.0"] / total) * 100, 2),
+                    "total": total
+                })
+                
+        return jsonify({"success": True, "data": report_result, "total_items": len(data)})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/api/files', methods=['GET'])
 def list_files():
     files = []
