@@ -43,11 +43,12 @@ def process_json(input_filepaths, output_filepath):
 
 if __name__ == "__main__":
     input_files = [
-        # r"d:\Gab\ProjectMaster\dataset_crawler-google-places_2026-03-17_08-23-53-140.json",
-        # r"d:\Gab\ProjectMaster\dataset_crawler-google-places_2026-03-17_09-36-02-989.json",
-        #  r"d:\Gab\ProjectMaster\dataset_crawler-google-places_2026-04-06_04-19-03-018.json"
-         r"d:\Gab\ProjectMaster\dataset_crawler-google-places_2026-04-06_06-14-18-944.json"
+        # r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-03-17_08-23-53-140.json",
+        # r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-03-17_09-36-02-989.json",
+        #  r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-06_04-19-03-018.json"
+        #  r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-06_06-14-18-944.json"
+         r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-23_08-19-34-212.json"
     ]
-    output_file = r"d:\Gab\ProjectMaster\exported_data_04.json"
+    output_file = r"d:\Gab\ProjectMaster\exported_data_05.json"
     process_json(input_files, output_file)
     print(f"Done! Exported to {output_file}")

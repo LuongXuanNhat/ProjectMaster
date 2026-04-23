@@ -1,0 +1,15 @@
+Các địa điểm đã cào
+- HCM
+- Nha Trang
+- Đà Nẵng
+- Bà Rịa - Vũng Tàu
+- Hà Nội
+- Huế (Bị sai, lần sau fetch lại)
+- Đà Lạt (Lần sau)
+- Cần Thơ (Lần sau)
+
+Các thông tin cần lấy ra:
+- title
+- address
+- categories
+- reviews

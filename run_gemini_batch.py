@@ -53,8 +53,8 @@ def main():
 
     sys_prompt = read_prompt("label_studio_prompt.txt")
     
-    input_file = "exported_data_04.json"
-    output_file = "labeled_results_batch_04.json"
+    input_file = "exported_data_05.json"
+    output_file = "labeled_results_batch_05.json"
     
     data_all = load_data(input_file)
     total_reviews = len(data_all)

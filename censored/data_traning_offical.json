@@ -2571,5 +2571,1431 @@
       }
     ],
     "index": 89
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-08-29",
+      "textTranslated": "Khách sạn sạch sẽ.\nPhòng một giường giá 280k, phòng hai giường giá 330k.\nKhi Con Cuông bị mất nước, họ đã tử tế cho tôi dùng phòng tắm trong hai tuần.\nKhách sạn được điều hành bởi một người chủ rất tốt bụng và trung thực.",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Khách sạn sạch sẽ, chủ và nhân viên rất tốt bụng, trung thực và hỗ trợ khách trong tình huống khó khăn. Giá cả được đề cập.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 90
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-08-20",
+      "textTranslated": "Phòng ốc rất đẹp, sạch sẽ và rộng rãi. Giá cả cực kỳ phải chăng, và nhân viên rất chu đáo và nhiệt tình. Họ đã giúp chúng tôi đặt taxi để đi tham quan thác nước và đi thuyền, cả hai đều rất tuyệt!",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Phòng ốc đẹp, sạch sẽ, rộng rãi, giá cả phải chăng và nhân viên rất chu đáo, nhiệt tình hỗ trợ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 91
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-07-10",
+      "textTranslated": "Chúng tôi đã ở đây 4 đêm để nạp lại năng lượng trong chuyến đi xe đạp của mình. Khách sạn cực kỳ sạch sẽ, phòng ốc không tì vết, vị trí thuận lợi và xung quanh khách sạn có quán cà phê, nhà hàng và cửa hàng. Họ có bãi đậu xe có mái che và nơi này rất yên tĩnh. Chủ sở hữu và nhân viên rất tốt bụng, nhẹ nhàng và hữu ích họ đã giúp chúng tôi tìm lại tai nghe. Có rất nhiều hoạt động bạn có thể làm ở đây như đi thác nước và bơi lội, đạp xe, tham quan các làng mạc, đi bộ đường dài trong thiên nhiên.",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Khách sạn cực kỳ sạch sẽ, vị trí thuận lợi, yên tĩnh, có bãi đậu xe và nhân viên rất tốt bụng, hữu ích.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 92
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-05-31",
+      "textTranslated": "Khách sạn này rất sạch sẽ, giá cả phải chăng và yên tĩnh. Nhân viên cực kỳ nhiệt tình và dễ mến. Họ đã đề nghị hỗ trợ chúng tôi lên kế hoạch cho chuyến đi, vì việc này khá khó khăn ở Con Cuông vì không nhiều người nói tiếng Anh và hầu hết các trải nghiệm chỉ có thể đặt qua điện thoại. Nhân viên ở đây đã nỗ lực hết mình để giúp đỡ chúng tôi. Phòng ốc đơn giản và thoải mái. Giường cứng cáp, điều mà tôi rất thích.",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Khách sạn sạch sẽ, giá cả phải chăng, yên tĩnh, nhân viên cực kỳ nhiệt tình và phòng ốc thoải mái.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 93
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-04-03",
+      "textTranslated": "Phòng sạch sẽ và ga trải giường cũng sạch sẽ. Nhưng khói thuốc lá từ phòng bên cạnh cứ thế bay vào, đánh thức chúng tôi dậy vào ban đêm. Ban đêm rất ồn ào, tiếng cửa đóng sầm, tiếng người nói chuyện ngoài hành lang, tiếng nhạc cũng khiến chúng tôi mất ngủ. Khách hàng kiểu gì mà lại đến vào lúc nửa đêm thế này?",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Phòng và ga trải giường sạch sẽ nhưng có khói thuốc lá và rất ồn ào vào ban đêm.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 94
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-11-07",
+      "textTranslated": "10 điểm ko có nhưng.phòng sạch sẽ .khách quên đồ chủ mang đến tận nơi cho.mãi yêu",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Phòng sạch sẽ và chủ khách sạn rất tận tình, chu đáo.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 95
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-10-04",
+      "textTranslated": "Phòng sạch, gọn, thoáng. Vào hẽm, có chổ đậu oto. Quản lý vui vẻ",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Phòng sạch, gọn, thoáng, có chỗ đậu ô tô và quản lý vui vẻ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 96
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-09-14",
+      "textTranslated": "Giá hơi cao hơn một chút, khoảng 300.000 rupiah và hầu như không thể thương lượng, khách sạn mới này với các phòng sạch sẽ, đầy đủ tiện nghi, nằm ở vị trí yên tĩnh nhưng trung tâm, là một nơi nghỉ ngơi tuyệt vời so với những chỗ nghỉ thường tồi tàn và bẩn thỉu ở vùng nông thôn. Tôi rất thích chiếc giường thoải mái, cửa sổ lớn, tất cả các thiết bị đều hoạt động tốt và sạch sẽ, cũng như một chiếc bàn và ghế nhỏ để làm việc. Chắc chắn tôi sẽ quay lại nếu có dịp đi qua khu vực này lần nữa!",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Giá hơi cao nhưng khách sạn mới, sạch sẽ, đầy đủ tiện nghi, vị trí yên tĩnh, trung tâm và phòng ốc thoải mái.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 97
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-09-03",
+      "textTranslated": "Phòng sạch sẽ, chủ thân thiện, recomend khi lên con cuông",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Phòng sạch sẽ và chủ khách sạn thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 98
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-06-05",
+      "textTranslated": "Nhà nghỉ mới hoạt động giữa năm 2024, cơ sở vật chất mới, sạch sẽ, chú lễ tân nhiệt tình, giá 300k phòng 2 giường đơn hợp lý.",
+      "title": "Thành Nam Hotel"
+    },
+    "reasoning": "Nhà nghỉ mới, sạch sẽ, lễ tân nhiệt tình và giá cả hợp lý.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 99
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-11",
+      "textTranslated": "Ở đây chủ nhiệt tình vui tính giúp đỡ lắm ạ, giá phòng rẻ hợp lý. Sạch sẽ thơm tho",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Chủ nhiệt tình, giá phòng rẻ hợp lý và phòng sạch sẽ thơm tho.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 100
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-11-09",
+      "textTranslated": "Phòng đắt hơn khách sạn\nQua đêm mà 8h sáng phải trả phòng\nPhòng thì ẩm mốc\nKhăn thì cũ\nNhà thì dột phải hứng chậu nước\nVào 1 lần duy nhất không có lần 2",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng đắt, phải trả phòng sớm, phòng ẩm mốc, khăn cũ và nhà dột.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 101
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-10-31",
+      "textTranslated": "Phòng sạch sẽ thơm tho, đã nghỉ ở đây 3 lần. Giá cả hợp lý. Bạn chủ nhỏ thân thiện",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng sạch sẽ thơm tho, giá cả hợp lý và chủ thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 102
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-07-26",
+      "textTranslated": "Phòng sạch đẹp, chăn ga luôn được giặt ngay sau khi trả phòng. Giá hợp lý.",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng sạch đẹp, chăn ga được giặt ngay và giá hợp lý.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 103
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-06-29",
+      "textTranslated": "Thái độ phục vụ của c tóc ngắn cực kém, còn bảo thuê thì thuê k thuê thì thôi",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Thái độ phục vụ của nhân viên cực kém và thiếu tôn trọng khách hàng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 104
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-02-13",
+      "textTranslated": "Lúc đọc đánh giá để đặt phòng cũng hơi hơi lưỡng lự, nhưng vì địa chỉ công tác ở trường ĐH Kte nên mình đặt ở đây. Thật sự rất hài lòng, phòng ốc sạch sẽ, yên tĩnh. Chị chủ vui vẻ nhiệt tình, giá cả thì mình thấy chỗ nào cũng giao động 300-350 nên mình thấy ổn nha",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng sạch sẽ, yên tĩnh, chị chủ vui vẻ nhiệt tình và giá cả ổn.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 105
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-02-10",
+      "textTranslated": "Mình có việc quá đây nghỉ theo giờ, thấy phòng sạch sẽ, thoáng, giá cả hợp lý",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng sạch sẽ, thoáng và giá cả hợp lý.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 106
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-02-10",
+      "textTranslated": "Mình lướt đọc đánh giá cũng hơi rén, nhưng đến thì ngoài mức mong đợi, chủ thân thiện, vui, phòng ốc sạch sẽ, giá như vậy ở trung tâm là hợp lý",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Chủ thân thiện, phòng ốc sạch sẽ và giá cả hợp lý ở trung tâm.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 107
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-02-10",
+      "textTranslated": "Phòng sạch sẽ, chủ thân thiện, giá bình dân. Hơn tưởng tượng mình kỳ vọng",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng sạch sẽ, chủ thân thiện và giá bình dân.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 108
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-02-07",
+      "textTranslated": "Giá phòng phù hợp, phòng sạch sẽ, chủ thân thiện, kín đáo",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Giá phòng phù hợp, phòng sạch sẽ và chủ thân thiện, kín đáo.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 109
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-02-04",
+      "textTranslated": "Khi chưa đặt phòng, mình cũng khá lo lắng vì đọc comment của nhiều khách đã từng ghé trước đây. Nhưng trộm vía, mình được hỗ trợ quá nhiệt tình\nĐặt phòng từ Fanpage, nhân viên đón tiếp niềm nở, chia sẻ thông tin nhanh chóng. Báo giá cũng hẳn hoi rõ ràng\n3h sáng mình nhận phòng, gọi báo khách sạn, KS chuẩn bị phòng cũng nhanh. Hơi lỗi 1 xíu vì KS ghi nhầm lịch của mình, tuy nhiên đã rất có thiện chí hỗ trợ và xếp phòng cho vợ chồng mình nghỉ ngơi sớm\n\nPhòng ốc tiện nghi vừa đủ, quan trọng mình thích cách KS hỗ trợ khách dù trong tình huống bất khả kháng\nLần sau về, nếu có phải ở lại Vinh, mình chắc chắn sẽ lại chọn khách sạn làm điểm nghỉ ngơi",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Nhân viên hỗ trợ nhiệt tình, đón tiếp niềm nở, báo giá rõ ràng và phòng ốc tiện nghi vừa đủ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 110
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-12-24",
+      "textTranslated": "Phòng đẹp , mới và sạch sẽ lắm, mình đi với giá đình thấy giá cả cũng bình dân nữa .",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng đẹp, mới, sạch sẽ và giá cả bình dân.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 111
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-09-28",
+      "textTranslated": "Đã trải nghiệm phòng nghỉ ở đây. Phòng sạch sẽ, thoáng mát, chủ thân thiện nhiệt tình, giá cả phù hợp. chi phí các dịch vụ đi kèm tương đối rẻ. địa điểm nhà nghỉ gần khu vực mình công tác nên khác thuận tiện, ngoài ra đây gần khu vực siêu thị, trường học, các quán ăn, phương tiện đi lại thuân tiện. sẽ ủng hộ lâu dài",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng sạch sẽ, thoáng mát, chủ thân thiện nhiệt tình, giá cả phù hợp và chi phí dịch vụ rẻ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 112
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-09-02",
+      "textTranslated": "Chủ nhà mất dạy, thu phòng quá đắt. Nhà nghỉ bình dân mà thu như khách sạn 3 sao. Giờ giấc thu lung tung. Bà con cảnh giác khi thuê nhé",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Chủ nhà mất dạy, thu phòng quá đắt và giờ giấc thu lung tung.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 113
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-09-02",
+      "textTranslated": "Phòng quá đắt, dịch vụ quá tệ. Mọi người đừng nghỉ ở đây nhé. Bảo qua đêm 1 ngày lúc nhận phòng kêu 12h xong lại đổi qua 11h. Đến 11h20 thu thêm 150k tiền phòng. Chủ vừa khó chịu vừa mất dạy",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng quá đắt, dịch vụ quá tệ, thay đổi giờ trả phòng và chủ khó chịu, mất dạy.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 114
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-08-10",
+      "textTranslated": "Phòng ở sạch sẽ nhân viên viên nhiệt tình nêu có cơ hỏi lần sau mình nhất định sẽ quay lại",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng sạch sẽ và nhân viên nhiệt tình.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 115
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-08-03",
+      "textTranslated": "Phòng chất lượng kém, giá phòng thì chặt chém quá mức, mình vào phòng từ 9h và trả phòng vào 19h hôm sau chém giá 600k. Các thành phố du lịch khác giá còn rẻ hơn nhiều",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng chất lượng kém và giá phòng chặt chém quá mức.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 116
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-07-10",
+      "textTranslated": "Trải nghiệm rất tệ. rất thất vọng khi ghé thăm thành phố Vinh.\nTôi hỏi ở 12 tiếng, chủ nhà nghỉ nói vậy là ở 1 ngày, đúng như giá phòng niêm yết và tôi trả đủ 300k. Tôi ở 14 tiếng trả phòng thì thu thêm của tôi 60k tiền quá giờ. mấy chục nghìn chả đáng là bao nhưng tôi bức xúc. Mọi người đừng ở cái nhà nghỉ chết tiệt này",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Chủ nhà nghỉ thu thêm tiền quá giờ không rõ ràng, gây bức xúc.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 117
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-05-01",
+      "textTranslated": "Thứ 1Đây là nhà nghỉ chứ k phải là khách sạn.\nThứ 2 Rõ ràng là hỏi trước với bạn con của chủ nhà nghỉ trước rồi, báo là mùng 10 hết tết thì giá 200k ngày đêm. Sau ra tính tiền thì bà mẹ chặt chém 350k ngày đêm. Chắc thấy cccd không phải ở Vinh nên chém như thế.\nThứ 3 So với chất lượng như thế thì tết cũng không có giá đó.\nLàm ăn như thế thì chỉ được 1 lần rồi\nTrải nghiệm bực bội, tệ đến bây giờ",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Giá phòng bị chặt chém so với thỏa thuận và chất lượng không tương xứng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 118
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-04-18",
+      "textTranslated": "Chủ nhà tuyệt vời, rất thân thiện và hữu ích, những người trẻ tuổi nói tiếng Anh và sẽ giới thiệu cho bạn những địa điểm ăn uống và tham quan tuyệt vời quanh thành phố",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Chủ nhà tuyệt vời, rất thân thiện và hữu ích, giới thiệu địa điểm ăn uống và tham quan.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 119
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-09-15",
+      "textTranslated": "Phòng sạch sẽ, địa điểm thuận tiện đi lại. Sẽ tiếp tục ủng hộ",
+      "title": "nhà nghỉ Thanh Bình 1"
+    },
+    "reasoning": "Phòng sạch sẽ và địa điểm thuận tiện đi lại.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 120
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2026-02-23",
+      "textTranslated": "Phòng sạch sẽ và đẹp lắm luôn\nCô chú chủ khách sạn siêu cute và thân thiện ạ",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Phòng sạch sẽ, đẹp và cô chú chủ khách sạn siêu cute, thân thiện.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 121
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-08-11",
+      "textTranslated": "phòng khá ổn, mình đến check in thì phòng nguyên 1 đường kiến bò, sau khi liên hệ thì KS đã cho NV lên dọn dẹp, tuy nhiên vì vậy nên ấn tượng của mình thấy ko sạch sẽ lắm, góp ý KS nên check kỹ phòng trước khi khách đến. Nệm hơi cứng, vị trí KS thì OK, gần khu ẩm thực, gần biển",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Phòng có kiến bò, nệm hơi cứng, nhưng vị trí khách sạn thuận tiện và nhân viên đã dọn dẹp khi liên hệ.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 122
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-08-09",
+      "textTranslated": "Khách sạn ngay khu vui chơi trẻ em và bãi biển, nhiều hàng quán ăn sáng. Mình ở trong tuần nên giá rẻ 550k 1 đêm phòng 2 giường 4 người tầng 6 nên có ban công rất thoáng. Anh chị chủ nhà dễ tính, mình đi có xe 7 chỗ nên đỗ luôn ở cửa rất tiện.",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Khách sạn gần khu vui chơi, bãi biển, giá rẻ, phòng có ban công thoáng và chủ nhà dễ tính, có chỗ đỗ xe tiện lợi.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 123
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-05-30",
+      "textTranslated": "Nóng lạnh k hoạt động. Ga bẩn. Đồ dùng toàn hàng bãi hơi đểu",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Nóng lạnh không hoạt động, ga bẩn và đồ dùng kém chất lượng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 124
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-05-02",
+      "textTranslated": "30.4.25 em vào nhà người quen chơi và đọc thấy mn thuê phòng ở đây khoảng 3-400 em hỏi thuê thì đc báo 1,2tr. thôi e nghĩ phòng ok e chấp nhận. đến nơi thì phòng bí, ko có cửa sổ có cửa nhưng nhìn thông từ giường ra thang máy đi lại, ko ai mở đc nước nóng thì chỉ âm ấm. nhà tắm thì có cát, giường bẩn, điều hoà thì hàng bãi vàng khè, ti vi cũng ko mở đc, quá nhiều thứ em chán chả buồn nói. Thật sự lần đầu tiên em đến với Cửa Lò mà em thất thất vọng vô cùng. Giờ đường đẹp mn có thể thuê ks trong TP nhé",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Giá phòng cao bất thường, phòng bí, không có cửa sổ, nước nóng yếu, nhà tắm có cát, giường bẩn, điều hòa và TV hỏng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 125
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-02-23",
+      "textTranslated": "Hơi tệ vì nóng lạnh k có. Gọi điện thì chủ k nge máy. Mình bảo giảm tiền vì lỗi nóng lạnh cx k chịu",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Nóng lạnh không có, chủ không nghe máy và không chịu giảm tiền phòng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 126
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2025-02-19",
+      "textTranslated": "Khách sạn rộng rãi và đầy đủ trang thiết bị.\nHôm mình đến là mùng 3 tết nhưng giá phòng ko cao chỉ 300k. Chị chủ ksan cũng nhiệt tình và thân thiện. Ksan gần nhiều hàng quán, nhưng đi ra bờ biển hơi xa",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Khách sạn rộng rãi, đầy đủ trang thiết bị, giá phòng không cao, chủ nhiệt tình thân thiện, nhưng đi ra biển hơi xa.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 127
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-11-28",
+      "textTranslated": "Mô tả phòng trên Agoda thiếu một chi tiết quan trọng. Cửa sổ hướng ra hành lang nên phòng không có ánh sáng tự nhiên. Điều này đáng lẽ phải được lưu ý khi nhận phòng. Vì khách sạn đang thiếu khách, chúng tôi tự hỏi tại sao lại đặt một phòng như vậy. Sau đó, đặt phòng đã bị hủy. Có người muốn ngăn chặn việc đánh giá hoặc tính phí. Vì không thể cho 0 sao cho dịch vụ, tôi sẽ cho 1 sao. Nhìn chung, đánh giá sẽ tốt hơn nhiều nếu không có vấn đề hủy phòng.",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Phòng không có ánh sáng tự nhiên do cửa sổ hướng hành lang, mô tả thiếu thông tin và dịch vụ hủy phòng kém.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0
+      },
+      {
+        "name": "Service quality",
+        "value": 0
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0.5
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 128
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-07-28",
+      "textTranslated": "Khách sạn gần biển, chỗ để xe hơi xa và nhỏ, gửi cạnh quán cafe có bất tiện cho khách lưu trú đi xe gia đình. Phòng khách sạn đẹp, nhà vệ sinh sạch sẽ, tiện ích khá đủ, ở thoải mái.Mỗi khi có vấn đề phòng ở, khách sạn đều hỗ trợ ngay. Tuy nhiên, điện áp khách sạn quá yếu, chập chờn, dẫn đến phòng khách sạn gia đình mình ở cùng gia đình bị cháy đường dây điện thiết bị tủ lạnh, quạt trong phòng có mùi khét rất ảnh hưởng, điều hòa cũng hỏng luôn, mất điện toàn bộ khách sạn 1 buổi chiều dẫn đến trải nghiệm không mấy thoải mái, điện nước mất không tắm được của gia đình mình trong chuyến nghỉ hè này. Thêm vào đó, thang máy của khách sạn rất hay lỗi, hay phải leo bộ, có lúc mắc kẹt trong thang máy. Nói chung khách sạn sẽ ở thoải mái nếu khắc phục được tình trạng điện áp chung của khách sạn nói trên. Mong khách sạn sẽ sớm khắc phục được những vấn đề nói trên để những khách du lịch sau lưu trú ở khách sạn sẽ có những trải nghiệm nghỉ ngơi thoái mái và ấn tượng tốt về khách sạn.",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Phòng đẹp, nhà vệ sinh sạch sẽ, hỗ trợ khi có vấn đề, nhưng chỗ để xe xa, điện áp yếu gây cháy thiết bị, điều hòa hỏng, mất điện và thang máy hay lỗi.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 129
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-06-28",
+      "textTranslated": "Vị trí đi ra biển gần, phòng khoảng 4 sao vì khi vào phòng vẫn còn tóc trên ga. Vị trí để xe hơi xa . Vẫn cho nhà hàng 5 sao",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Vị trí gần biển nhưng chỗ để xe xa, phòng còn tóc trên ga, đồ ăn nhà hàng ngon.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0.5
+      }
+    ],
+    "index": 130
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2024-04-28",
+      "textTranslated": "Khách sạn giá rẻ, 350k 1 phòng, tuy nhiên phòng hơi bí và có mùi.",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Khách sạn giá rẻ nhưng phòng hơi bí và có mùi.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 0
+      },
+      {
+        "name": "Atmosphere",
+        "value": 0
+      }
+    ],
+    "index": 131
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-11-02",
+      "textTranslated": "Sạch sẽ , rộng rãi giá hợp lý . Sẽ quay lại nhiều hơn",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Sạch sẽ, rộng rãi và giá hợp lý.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 1
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 132
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-09-22",
+      "textTranslated": "Khách sạn sạch sẽ , thoang mát , đầy đủ và rất tiện. Đặc biệt là đồ ăn ngon, chất lượng\nSau 2 ngày nghỉ ở đây chúng tôi thấy rất hài lòng, năm sau nhất định sẽ quay lại .",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Khách sạn sạch sẽ, thoáng mát, đầy đủ tiện nghi và đồ ăn ngon, chất lượng.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 133
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-08-22",
+      "textTranslated": "Khách sạn mới, sạch sẽ. vị trí trung tâm, rất gần bãi tắm, gần khu vui chơi giải trí, gần quán ăn sáng và quán nhậu\nCô cậu chủ rất vui vẽ,nhiệt tình lại chu đáo nữa",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Khách sạn mới, sạch sẽ, vị trí trung tâm gần bãi tắm và chủ rất vui vẻ, nhiệt tình, chu đáo.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 0.5
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 1
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 134
+  },
+  {
+    "original_data": {
+      "publishedAtDate": "2023-08-22",
+      "textTranslated": "Phòng ở sạch sẽ thoáng mát đồ ăn ngon , ở gần bài biển",
+      "title": "Khách Sạn Cửa Lò - Thanh Nam Hotel"
+    },
+    "reasoning": "Phòng sạch sẽ, thoáng mát, đồ ăn ngon và gần bãi biển.",
+    "labels": [
+      {
+        "name": "Food quality",
+        "value": 1
+      },
+      {
+        "name": "Price",
+        "value": 0.5
+      },
+      {
+        "name": "Service quality",
+        "value": 0.5
+      },
+      {
+        "name": "Hygiene and safety",
+        "value": 1
+      },
+      {
+        "name": "Atmosphere",
+        "value": 1
+      }
+    ],
+    "index": 135
   }
 ]
