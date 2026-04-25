@@ -23,8 +23,8 @@ def process_json(input_filepaths, output_filepath):
                 continue
 
             for review in reviews:
-                text_translated = review.get("text")
-                text = review.get("textTranslated")
+                text_translated = review.get("textTranslated")
+                text = review.get("text")
                 
                 published_at_date = review.get("publishedAtDate")
                 if published_at_date and len(published_at_date) >= 10:
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     input_files = [
         # r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-23_08-19-34-212.json"
         # r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-23_09-32-14-390.json"
-        r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-23_09-32-14-391.json"
+        r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-24_01-37-49-075.json"
     ]
     output_file = r"d:\Gab\ProjectMaster\exported_data_06.json"
     process_json(input_files, output_file)

@@ -4,7 +4,7 @@ Các địa điểm đã cào
 - Đà Nẵng
 - Bà Rịa - Vũng Tàu
 - Hà Nội
-- Huế (Bị sai, lần sau fetch lại)
+- Huế (restaurant)
 - Đà Lạt (Lần sau)
 - Cần Thơ (Lần sau)
 

@@ -44,8 +44,8 @@ def main():
     # CÁCH 1: Xoay vòng (Rotate) API Key
     # Bạn có thể đăng ký 2-3 acc clone lấy key dán vào đây, code sẽ tự nhảy sang key khác khi 1 key bị limit.
     api_keys = [
-        "AIzaSyBXAc8bTpgUPAwbPWou4QTfddykZZI4Am8",
         "AIzaSyBKYln2X1b27_HEptr8jHSztLSIgpscwwk", 
+        "AIzaSyBXAc8bTpgUPAwbPWou4QTfddykZZI4Am8",
         "AIzaSyD8i6h7K55NaoKbWcurFajlHvxNGZJyixg"
     ]
     current_key_idx = 0
@@ -53,8 +53,8 @@ def main():
 
     sys_prompt = read_prompt("label_studio_prompt.txt")
     
-    input_file = "exported_data_05.json"
-    output_file = "labeled_results_batch_05.json"
+    input_file = "exported_data_06.json"
+    output_file = "labeled_results_batch_06.json"
     
     data_all = load_data(input_file)
     total_reviews = len(data_all)
