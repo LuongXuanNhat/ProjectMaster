@@ -4,9 +4,11 @@ import os
 input_files = [
     'labeled_results_batch_02.json',
     'labeled_results_batch_03.json',
-    'labeled_results_batch_04.json'
+    'labeled_results_batch_04.json',
+    'labeled_results_batch_05.json',
+    'labeled_results_batch_06.json'
 ]
-output_file = 'labeled_results_all_v2.json'
+output_file = 'labeled_results_all_v3.json'
 
 all_results = []
 
