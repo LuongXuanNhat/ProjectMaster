@@ -1,3 +1,5 @@
+Đề tài: “Phân tích cảm xúc theo khía cạnh cho đánh giá nhà hàng tiếng Việt bằng mô hình học sâu”
+
 Trong một bài đánh giá (review) nhà hàng khách quan và toàn diện, các chuyên gia ẩm thực cũng như thực khách thường dựa vào một bộ tiêu chí chuẩn mực. Dù cảm nhận của mỗi người là khác nhau, nhưng thứ tự ưu tiên thường được sắp xếp từ những yếu tố cốt lõi mang tính "sống còn" cho đến những yếu tố gia tăng trải nghiệm.
 
 Dưới đây là 5 tiêu chí chính được sắp xếp theo thứ tự quan trọng giảm dần, cùng với phân tích chi tiết cho từng yếu tố:

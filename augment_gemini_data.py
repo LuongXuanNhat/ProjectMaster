@@ -42,9 +42,12 @@ def calculate_stats(data_list):
 
 def main():
     api_keys = [
-        "AIzaSyAVX6xqswPMNQS16GJMsgyICgTkNx02Y1A",  # toiyeuntl@gmail.com
-        "AIzaSyBPzoKhML0Rz20MvcccHNIrKQ2AA1_SY6E", # xuannhat1832002
-        "AIzaSyCi4sABANCYtF2L7G-HdmwJ2boW2Jc2MCw" # xuannhat1932002
+        # "AIzaSyAVX6xqswPMNQS16GJMsgyICgTkNx02Y1A",  # toiyeuntl@gmail.com
+        # "AIzaSyBPzoKhML0Rz20MvcccHNIrKQ2AA1_SY6E", # xuannhat1832002
+        # "AIzaSyCi4sABANCYtF2L7G-HdmwJ2boW2Jc2MCw" # xuannhat1932002
+        "AIzaSyBKYln2X1b27_HEptr8jHSztLSIgpscwwk", 
+        "AIzaSyBXAc8bTpgUPAwbPWou4QTfddykZZI4Am8",
+        "AIzaSyD8i6h7K55NaoKbWcurFajlHvxNGZJyixg"
     ]
     current_key_idx = 0
     client = genai.Client(api_key=api_keys[current_key_idx])
