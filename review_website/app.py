@@ -22,7 +22,7 @@ def report():
 
 @app.route('/api/report_data', methods=['GET'])
 def get_report_data():
-    filename = "labeled_results_all_v2.json"
+    filename = "labeled_results_all_v3_cut.json"
     filepath = os.path.join(MASTER_DIR, filename)
     if not os.path.exists(filepath):
         return jsonify({"error": f"File not found: {filename}"}), 404

@@ -6,7 +6,7 @@ Các địa điểm đã cào
 - Hà Nội
 - Huế (restaurant)
 - Đà Lạt (Lần sau)
-- Cần Thơ (Lần sau)
+- Cần Thơ
 
 Các thông tin cần lấy ra:
 - title
