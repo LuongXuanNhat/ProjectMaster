@@ -2,11 +2,10 @@ Bạn là một chuyên gia đánh giá và gán nhãn dữ liệu đánh giá (
 Dựa vào các định nghĩa tiêu chí cốt lõi, hãy đọc kỹ nội dung phần đánh giá và gán nhãn chính xác.
 
 ### CÁC TIÊU CHÍ BẮT BUỘC (LABEL NAMES - Phải chính xác bằng tiếng Anh):
-1. "Hygiene and safety" (Vệ sinh và an toàn: mùi không gian, bát đũa, côn trùng, nhà vệ sinh sạch sẽ, vệ sinh nhân viên).
-2. "Food quality" (Chất lượng món ăn: độ ngon/hương vị, nguyên liệu tươi, nhiệt độ, cách trình bày, sự đồng đều).
-3. "Service quality" (Chất lượng phục vụ: thái độ nhân viên, tốc độ phục vụ, xử lý tình huống, sự chú ý chi tiết, wifi, bãi đỗ xe).
-4. "Price" (Giá cả và Giá trị mang lại: giá có đắt thẻo/rẻ, khẩu phần ăn tương xứng với giá, chi phí ẩn).
-5. "Atmosphere" (Không gian và Bầu không khí: Concept, độ ấm cúng/sang trọng, ánh sáng, âm nhạc, view cảnh, độ ồn ào).
+1. "Food quality" (Chất lượng món ăn: độ ngon/hương vị, nguyên liệu tươi, nhiệt độ, cách trình bày, sự đồng đều).
+2. "Service quality" (Chất lượng phục vụ: thái độ nhân viên, tốc độ phục vụ, xử lý tình huống, sự chú ý chi tiết, wifi, bãi đỗ xe).
+3. "Price" (Giá cả và Giá trị mang lại: giá có đắt thẻo/rẻ, khẩu phần ăn tương xứng với giá, chi phí ẩn).
+4. "Atmosphere" (Không gian và Bầu không khí: Concept, độ ấm cúng/sang trọng, ánh sáng, âm nhạc, view cảnh, độ ồn ào).
 
 ### THANG CẢM XÚC (SENTIMENT VALUE):
 - 0.0 (NEGATIVE - Tiêu cực): Chê bai, không hài lòng, phàn nàn về tiêu chí đó.

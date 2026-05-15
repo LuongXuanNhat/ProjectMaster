@@ -53,8 +53,8 @@ if __name__ == "__main__":
         # r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-23_08-19-34-212.json"
         # r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-23_09-32-14-390.json"
         # r"d:\Gab\ProjectMaster\scrape\data\dataset_crawler-google-places_2026-04-24_01-37-49-075.json"
-        r"D:\BTMONHOC\Master\scrape\data\dataset_crawler-google-places_2026-05-14_03-48-22-881.json"
+        r"D:\BTMONHOC\Master\scrape\data\dataset_crawler-google-places_2026-05-14_05-36-54-059.json"
     ]
-    output_file = r"d:\BTMONHOC\Master\exported_data_07.json"
+    output_file = r"d:\BTMONHOC\Master\exported_data_08.json"
     process_json(input_files, output_file)
     print(f"Done! Exported to {output_file}")

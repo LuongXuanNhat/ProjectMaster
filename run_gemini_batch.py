@@ -16,7 +16,7 @@ except ImportError:
 
 # Định nghĩa Schema cho kết quả của 1 câu
 class LabelOutput(BaseModel):
-    name: str = Field(description="Tên tiêu chí. Phải là một trong: 'Food quality', 'Price', 'Service quality', 'Hygiene and safety', 'Atmosphere'")
+    name: str = Field(description="Tên tiêu chí. Phải là một trong: 'Food quality', 'Price', 'Service quality', 'Atmosphere'")
     value: float = Field(description="Giá trị cảm xúc. Chỉ dùng: 0.0 (NEGATIVE), 0.5 (NEUTRAL), hoặc 1.0 (POSITIVE)")
 
 class ReviewAnalysis(BaseModel):
@@ -53,8 +53,8 @@ def main():
 
     sys_prompt = read_prompt("label_studio_prompt.txt")
     
-    input_file = "exported_data_06.json"
-    output_file = "labeled_results_batch_06.json"
+    input_file = "exported_data_08.json"
+    output_file = "labeled_results_batch_08.json"
     
     data_all = load_data(input_file)
     total_reviews = len(data_all)

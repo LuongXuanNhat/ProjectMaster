@@ -5,8 +5,9 @@ Các địa điểm đã cào
 - Bà Rịa - Vũng Tàu
 - Hà Nội
 - Huế (restaurant)
-- Đà Lạt (Lần sau)
+- Đà Lạt 
 - Cần Thơ
+- Sapa (chưa)
 
 Các thông tin cần lấy ra:
 - title
