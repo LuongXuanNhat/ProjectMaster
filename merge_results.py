@@ -6,9 +6,11 @@ input_files = [
     'labeled_results_batch_03.json',
     'labeled_results_batch_04.json',
     'labeled_results_batch_05.json',
-    'labeled_results_batch_06.json'
+    'labeled_results_batch_06.json',
+    'labeled_results_batch_07.json',
+    'labeled_results_batch_08.json'
 ]
-output_file = 'labeled_results_all_v3.json'
+output_file = 'labeled_results_all_v5.json'
 
 all_results = []
 
