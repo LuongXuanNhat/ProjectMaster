@@ -1,0 +1,38 @@
+1. Quá trình huấn luyện (Loss & Accuracy)
+Tổng quan tốt:
+
+Train Loss giảm đều từ 3.46 → 2.07 — mô hình đang học tốt
+Val Loss giảm từ 2.52 → 2.27 — generalization ổn định
+Val Acc đạt ~93% ngay từ epoch 1 và giữ ổn định
+
+Dấu hiệu đáng chú ý — Overfitting nhẹ:
+
+Từ epoch 3 trở đi, Train Acc tiếp tục tăng (93.7% → 95.8%) nhưng Val Acc gần như đứng yên (~93.3%)
+Khoảng cách Train/Val Acc ngày càng rộng ra → mô hình bắt đầu học "thuộc lòng" tập train
+Val Loss chỉ giảm rất ít (2.2947 → 2.2695 trong 2 epoch cuối) → gần như plateau
+
+Loss cao bất thường:
+
+Loss ~2.0–2.3 sau 5 epoch là khá cao cho BERT-based model → có thể do bài toán multi-label/multi-aspect với nhiều class, hoặc class imbalance
+
+
+2. Confusion Matrix — Phân tích từng khía cạnh
+🍽️ Food Quality
+Nhận xétTích cực (2)Rất tốt: 3121/3241 = 96.3%Trung tính (1)Trung bình: 799/927 = 86.2%, hay nhầm sang Tích cựcTiêu cực (0)Ổn: 264/307 = 85.9%
+💰 Price
+Nhận xétTrung tính (1)Tốt nhất: 3129/3258 = 96.0%Tiêu cực (0)Khá tốt: 232/246 = 94.3%Tích cực (2)Ổn: 915/971 = 94.2%
+
+✅ Aspect cân bằng nhất, phân loại tốt nhất trong 4 khía cạnh
+
+🛎️ Service Quality
+Nhận xétTích cực (2)Tốt: 2261/2360 = 95.8%Trung tính (1)Ổn: 1492/1624 = 91.9%Tiêu cực (0)Tốt: 450/491 = 91.6%
+🌿 Atmosphere
+Nhận xétTích cực (2)Ổn: 1916/2065 = 92.8%Trung tính (1)Yếu nhất: 2010/2232 = 90.1%, nhầm nhiều sang 2 chiềuTiêu cực (0)Yếu: 134/178 = 75.3% ⚠️
+
+⚠️ Khía cạnh khó nhất — Tiêu cực bị nhầm nhiều sang Trung tính (37 ca)
+
+
+3. Vấn đề chung & Gợi ý cải thiện
+Vấn đềGiải phápOverfitting nhẹ từ epoch 3Thêm Dropout, Weight Decay, hoặc dùng Early StoppingClass Tiêu cực yếu (đặc biệt Atmosphere)Dùng class weights hoặc focal loss để tăng penalty cho minority classTrung tính hay bị nhầmĐây là vấn đề phổ biến — nhãn Trung tính thường mơ hồ về mặt ngôn ngữVal Acc plateau sớmThử giảm learning rate theo schedule (cosine/linear decay)Loss caoKiểm tra lại label smoothing hoặc thử train thêm epoch với LR nhỏ hơn
+
+Tóm lại: Mô hình đạt kết quả khá tốt (~93% Val Acc) với PhoBERT, đặc biệt ở khía cạnh Price và Service. Điểm yếu chính là phân loại Tiêu cực của Atmosphere và xu hướng overfitting nhẹ ở các epoch cuối.
