@@ -2,15 +2,16 @@ import json
 import os
 
 input_files = [
-    'labeled_results_batch_02.json',
-    'labeled_results_batch_03.json',
-    'labeled_results_batch_04.json',
-    'labeled_results_batch_05.json',
-    'labeled_results_batch_06.json',
-    'labeled_results_batch_07.json',
+    # 'labeled_results_batch_02.json',
+    # 'labeled_results_batch_03.json',
+    # 'labeled_results_batch_04.json',
+    # 'labeled_results_batch_05.json',
+    # 'labeled_results_batch_06.json',
+    # 'labeled_results_batch_07.json',
+    'labeled_results_all_v4.json',
     'labeled_results_batch_08.json'
 ]
-output_file = 'labeled_results_all_v5.json'
+output_file = 'labeled_results_all_v6.json'
 
 all_results = []
 
