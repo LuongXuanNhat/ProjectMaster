@@ -1,0 +1,1224 @@
+﻿============================================================
+FILE: master_26_06_v3.ipynb
+============================================================
+--- Cell 1 ---
+import json
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import Dataset, DataLoader
+from transformers import AutoModel, AutoTokenizer
+from torch.optim import AdamW
+from torch.optim.lr_scheduler import OneCycleLR # 휂횄 휂沼봊 SANG ONECYCLELR
+from sklearn.model_selection import train_test_split
+from sklearn.utils.class_weight import compute_class_weight
+from sklearn.metrics import confusion_matrix, f1_score
+import pandas as pd
+import numpy as np
+from tqdm import tqdm
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# ==========================================
+# C梳짾 H횑NH CHI梳푇 THU梳촖 N횂NG C梳짶 V3
+# ==========================================
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"?? 휂ang ch梳죣 CHI梳푇 THU梳촖 N횂NG C梳짶 V3 tr챗n thi梳퓍 b沼? {device}\n")
+
+# ==========================================
+# FGM - FAST GRADIENT METHOD (Adversarial Training)
+# ==========================================
+class FGM:
+    def __init__(self, model):
+        self.model = model
+        self.backup = {}
+
+    def attack(self, epsilon=1.0, emb_name='word_embeddings'):
+        for name, param in self.model.named_parameters():
+            if param.requires_grad and emb_name in name:
+                self.backup[name] = param.data.clone()
+                norm = torch.norm(param.grad)
+                if norm != 0 and not torch.isnan(norm):
+                    r_at = epsilon * param.grad / norm
+                    param.data.add_(r_at)
+
+    def restore(self, emb_name='word_embeddings'):
+        for name, param in self.model.named_parameters():
+            if param.requires_grad and emb_name in name:
+                assert name in self.backup
+                param.data = self.backup[name]
+        self.backup = {}
+
+# ==========================================
+# KH沼얢 T梳쟏 C횁C L沼숻 H沼?TR沼?(FOCAL LOSS)
+# ==========================================
+class FocalLoss(nn.Module):
+    # V3: T훱ng label_smoothing l챗n 0.15 ch沼몁g h沼뛠 v梳퉡
+    def __init__(self, weight=None, gamma=2.0, reduction='mean', label_smoothing=0.15):
+        super(FocalLoss, self).__init__()
+        self.weight = weight
+        self.gamma = gamma
+        self.reduction = reduction
+        self.label_smoothing = label_smoothing
+
+    def forward(self, inputs, targets):
+        ce_loss = F.cross_entropy(
+            inputs, targets, weight=self.weight,
+            reduction='none', label_smoothing=self.label_smoothing
+        )
+        pt = torch.exp(-ce_loss)
+        focal_loss = ((1 - pt) ** self.gamma) * ce_loss
+
+        if self.reduction == 'mean': return focal_loss.mean()
+        if self.reduction == 'sum': return focal_loss.sum()
+        return focal_loss
+
+# ==========================================
+# B특沼숦 2 & 3: 휂沼똂 D沼?LI沼냋 V? DATALOADER
+# ==========================================
+print("--- 휂沼뛠 v횪 x沼?l첵 d沼?li沼뇎 ---")
+with open('labeled_results_all_v6.json', 'r', encoding='utf-8') as f:
+    raw_data = json.load(f)
+
+def map_label(value):
+    if value == 0.0: return 0
+    elif value == 0.5: return 1
+    elif value == 1.0: return 2
+    return 1
+
+processed_data = []
+for item in raw_data:
+    text = item['original_data']['textTranslated']
+    labels = {l['name']: map_label(l['value']) for l in item['labels']}
+    processed_data.append({
+        'text': text,
+        'Food quality': labels.get('Food quality', 1),
+        'Price': labels.get('Price', 1),
+        'Service quality': labels.get('Service quality', 1),
+        'Atmosphere': labels.get('Atmosphere', 1)
+    })
+
+df = pd.DataFrame(processed_data)
+train_df, val_df = train_test_split(df, test_size=0.2, random_state=42, stratify=df['Atmosphere'])
+
+tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base-v2")
+
+class RestaurantReviewDataset(Dataset):
+    def __init__(self, df, tokenizer, max_len=256):
+        self.texts = df['text'].values
+        self.aspect_labels = df[['Food quality', 'Price', 'Service quality', 'Atmosphere']].values
+        self.tokenizer = tokenizer
+        self.max_len = max_len
+
+    def __len__(self): return len(self.texts)
+
+    def __getitem__(self, index):
+        text = str(self.texts[index])
+        labels = self.aspect_labels[index]
+        encoding = self.tokenizer(
+            text, add_special_tokens=True, max_length=self.max_len,
+            padding='max_length', truncation=True, return_attention_mask=True, return_tensors='pt'
+        )
+        return {
+            'input_ids': encoding['input_ids'].flatten(),
+            'attention_mask': encoding['attention_mask'].flatten(),
+            'labels': torch.tensor(labels, dtype=torch.long)
+        }
+
+BATCH_SIZE = 32
+train_loader = DataLoader(RestaurantReviewDataset(train_df, tokenizer), batch_size=BATCH_SIZE, shuffle=True, num_workers=2, pin_memory=True)
+val_loader = DataLoader(RestaurantReviewDataset(val_df, tokenizer), batch_size=BATCH_SIZE, num_workers=2, pin_memory=True)
+
+# ==========================================
+# B특沼숦 4: M횚 H횑NH PHOBERT ABSA (N횂NG C梳짶 POOLING)
+# ==========================================
+class PhoBertABSA(nn.Module):
+    def __init__(self, n_classes=3, n_aspects=4):
+        super(PhoBertABSA, self).__init__()
+        self.phobert = AutoModel.from_pretrained("vinai/phobert-base-v2")
+        hidden_size = self.phobert.config.hidden_size
+
+        self.fc_pool = nn.Linear(hidden_size * 2, hidden_size)
+
+        self.aspect_projections = nn.ModuleList([
+            nn.Sequential(
+                nn.Linear(hidden_size, 256),
+                nn.LayerNorm(256),
+                nn.GELU(),
+                nn.Dropout(0.40)
+            ) for _ in range(n_aspects)
+        ])
+
+        self.dropouts = nn.ModuleList([nn.Dropout(p=0.20) for _ in range(5)])
+
+        self.classifiers = nn.ModuleList([
+            nn.Linear(256, n_classes) for _ in range(n_aspects)
+        ])
+
+    def forward(self, input_ids, attention_mask):
+        outputs = self.phobert(input_ids=input_ids, attention_mask=attention_mask)
+        last_hidden_state = outputs.last_hidden_state
+
+        input_mask_expanded = attention_mask.unsqueeze(-1).expand(last_hidden_state.size()).float()
+        sum_embeddings = torch.sum(last_hidden_state * input_mask_expanded, 1)
+        sum_mask = input_mask_expanded.sum(1)
+        sum_mask = torch.clamp(sum_mask, min=1e-9)
+        mean_pooled = sum_embeddings / sum_mask
+
+        last_hidden_state[input_mask_expanded == 0] = -1e9
+        max_pooled = torch.max(last_hidden_state, 1)[0]
+
+        pooled_output = torch.cat((mean_pooled, max_pooled), 1)
+        pooled_output = F.relu(self.fc_pool(pooled_output))
+
+        logits = []
+        for i in range(4):
+            aspect_features = self.aspect_projections[i](pooled_output)
+            stacked_logits = torch.stack([
+                self.classifiers[i](drop(aspect_features)) for drop in self.dropouts
+            ], dim=0)
+            logits.append(torch.mean(stacked_logits, dim=0))
+
+        return logits
+
+# ==========================================
+# B특沼숦 5: OPTIMIZER, SCHEDULER & LOSS CHO VERSION 3
+# ==========================================
+model = PhoBertABSA().to(device)
+fgm = FGM(model)
+scaler = torch.amp.GradScaler('cuda')
+
+EPOCHS = 25 # 25 Epochs l횪 휃沼?v沼쌻 OneCycleLR
+MAX_LR = 2e-5
+WEIGHT_DECAY = 0.05 # V3: T훱ng l챗n 0.05 ph梳죜 n梳톘g h퉤n 휃沼?gi梳즡 Overfitting
+PATIENCE = 5
+
+def get_safe_class_weights(labels_array, aspect_name):
+    classes = np.unique(labels_array)
+    weights = compute_class_weight(class_weight='balanced', classes=classes, y=labels_array)
+    weights = np.clip(weights, a_min=0.5, a_max=5.0)
+
+    if aspect_name == 'Atmosphere':
+        weights[0] *= 1.2
+    elif aspect_name == 'Food quality':
+        weights[1] *= 1.1
+    return torch.tensor(weights, dtype=torch.float).to(device)
+
+aspect_columns = ['Food quality', 'Price', 'Service quality', 'Atmosphere']
+loss_fns = []
+for col in aspect_columns:
+    weights = get_safe_class_weights(train_df[col].values, col)
+    # V3: Gamma 2.5, Label smoothing 0.15
+    loss_fns.append(FocalLoss(weight=weights, gamma=2.5, label_smoothing=0.15))
+
+no_decay = ['bias', 'LayerNorm.weight']
+optimizer_grouped_parameters = [
+    {'params': [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)], 'weight_decay': WEIGHT_DECAY},
+    {'params': [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
+]
+optimizer = AdamW(optimizer_grouped_parameters, lr=MAX_LR)
+
+# V3: ONECYCLELR gi첬p h沼셢 t沼?m튼沼즨 m횪 kh척ng b沼?"s沼멵" Learning Rate
+total_steps = len(train_loader) * EPOCHS
+scheduler = OneCycleLR(
+    optimizer,
+    max_lr=MAX_LR,
+    total_steps=total_steps,
+    pct_start=0.1,
+    anneal_strategy='cos',
+    div_factor=10.0,
+    final_div_factor=100.0
+)
+
+history = {
+    'train_loss': [], 'val_loss': [],
+    'train_f1': [], 'val_f1': [], 'val_atmos': []
+}
+
+# ==========================================
+# V횘NG L梳턕 HU梳짴 LUY沼낿
+# ==========================================
+print("\n?? B梳췛 휂梳쪾 QU횁 TR횑NH HU梳짴 LUY沼낿 VERSION 3...")
+best_combined_score = 0.0
+patience_counter = 0
+
+for epoch in range(EPOCHS):
+    print(f"\nEpoch {epoch + 1}/{EPOCHS} (LR b梳칣 휃梳쬾: {optimizer.param_groups[0]['lr']:.2e})")
+
+    # ---------------- TRAINING ----------------
+    model.train()
+    total_loss = 0
+    all_preds, all_targets = [], []
+
+    for batch in tqdm(train_loader, desc="Training"):
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        labels = batch['labels'].to(device)
+
+        optimizer.zero_grad(set_to_none=True)
+
+        with torch.amp.autocast('cuda'):
+            logits = model(input_ids, attention_mask)
+            loss = sum([loss_fns[i](logits[i], labels[:, i]) for i in range(4)])
+            loss += 1.5 * loss_fns[3](logits[3], labels[:, 3])
+
+        scaler.scale(loss).backward()
+
+        # FGM Attack (V3: gi梳즡 epsilon xu沼몁g 0.8 cho an to횪n h퉤n khi d첫ng v沼쌻 OneCycle)
+        fgm.attack(epsilon=0.8)
+        with torch.amp.autocast('cuda'):
+            logits_adv = model(input_ids, attention_mask)
+            loss_adv = sum([loss_fns[i](logits_adv[i], labels[:, i]) for i in range(4)])
+        scaler.scale(loss_adv).backward()
+        fgm.restore()
+
+        scaler.unscale_(optimizer)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+        scaler.step(optimizer)
+        scaler.update()
+
+        # V3: SCHEDULER B梳췛 BU沼쁂 휂沼?TRONG V횘NG L梳턕 BATCH (C沼쬪 OneCycleLR)
+        scheduler.step()
+
+        total_loss += loss.item()
+
+        for i in range(4):
+            preds = torch.argmax(logits[i], dim=1)
+            all_preds.extend(preds.cpu().numpy())
+            all_targets.extend(labels[:, i].cpu().numpy())
+
+    train_f1 = f1_score(all_targets, all_preds, average='macro', zero_division=0)
+
+    # ---------------- VALIDATION ----------------
+    model.eval()
+    val_loss = 0
+    val_preds, val_targets = [], []
+
+    with torch.no_grad():
+        for batch in tqdm(val_loader, desc="Validation"):
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch['attention_mask'].to(device)
+            labels = batch['labels'].to(device)
+
+            with torch.amp.autocast('cuda'):
+                logits = model(input_ids, attention_mask)
+                v_loss = sum([loss_fns[i](logits[i], labels[:, i]) for i in range(4)])
+
+            val_loss += v_loss.item()
+
+            for i in range(4):
+                probs = F.softmax(logits[i], dim=1)
+                preds = torch.argmax(logits[i], dim=1)
+
+                if i == 3: # Atmosphere
+                    preds[probs[:, 0] >= 0.40] = 0
+                    mask_positive = (probs[:, 2] >= 0.40) & (probs[:, 0] < 0.40)
+                    preds[mask_positive] = 2
+                elif i == 0: # Food
+                    mask_food_pos = (probs[:, 2] >= 0.45) & (preds == 1)
+                    preds[mask_food_pos] = 2
+
+                val_preds.extend(preds.cpu().numpy())
+                val_targets.extend(labels[:, i].cpu().numpy())
+
+    atmos_preds = [val_preds[idx] for idx in range(len(val_preds)) if (idx % 4) == 3]
+    atmos_targets = [val_targets[idx] for idx in range(len(val_targets)) if (idx % 4) == 3]
+
+    val_f1_all = f1_score(val_targets, val_preds, average='macro', zero_division=0)
+    val_f1_atmos = f1_score(atmos_targets, atmos_preds, average='macro', zero_division=0)
+
+    avg_train_loss = total_loss/len(train_loader)
+    avg_val_loss = val_loss/len(val_loader)
+
+    print(f"Train Loss: {avg_train_loss:.4f} | Train F1: {train_f1:.4f}")
+    print(f"Val Loss: {avg_val_loss:.4f} | Val F1: {val_f1_all:.4f} | Val Atmos F1: {val_f1_atmos:.4f}")
+
+    history['train_loss'].append(avg_train_loss)
+    history['val_loss'].append(avg_val_loss)
+    history['train_f1'].append(train_f1)
+    history['val_f1'].append(val_f1_all)
+    history['val_atmos'].append(val_f1_atmos)
+
+    combined_score = (0.5 * val_f1_all) + (0.5 * val_f1_atmos)
+    if combined_score > best_combined_score:
+        print(f"?뙚 C梳즜 thi沼뇆! 휂i沼긩 t沼븂g h沼즤: {best_combined_score:.4f} -> {combined_score:.4f}. L튼u best_phobert_v3.pth")
+        best_combined_score = combined_score
+        # V3: 휂沼뷼 t챗n file l튼u tr沼?th횪nh _v3
+        torch.save(model.state_dict(), 'best_phobert_v3.pth')
+        patience_counter = 0
+    else:
+        patience_counter += 1
+        if patience_counter >= PATIENCE:
+
+============================================================
+FILE: master_26_06_v4.ipynb
+============================================================
+--- Cell 1 ---
+import json
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import Dataset, DataLoader
+from transformers import AutoModel, AutoTokenizer
+from torch.optim import AdamW
+from torch.optim.lr_scheduler import OneCycleLR # 휂횄 휂沼봊 SANG ONECYCLELR
+from sklearn.model_selection import train_test_split
+from sklearn.utils.class_weight import compute_class_weight
+from sklearn.metrics import confusion_matrix, f1_score
+import pandas as pd
+import numpy as np
+from tqdm import tqdm
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# ==========================================
+# C梳짾 H횑NH CHI梳푇 THU梳촖 N횂NG C梳짶 V3
+# ==========================================
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"?? 휂ang ch梳죣 CHI梳푇 THU梳촖 N횂NG C梳짶 V3 tr챗n thi梳퓍 b沼? {device}\n")
+
+# ==========================================
+# FGM - FAST GRADIENT METHOD (Adversarial Training)
+# ==========================================
+class FGM:
+    def __init__(self, model):
+        self.model = model
+        self.backup = {}
+
+    def attack(self, epsilon=1.0, emb_name='word_embeddings'):
+        for name, param in self.model.named_parameters():
+            if param.requires_grad and emb_name in name:
+                self.backup[name] = param.data.clone()
+                norm = torch.norm(param.grad)
+                if norm != 0 and not torch.isnan(norm):
+                    r_at = epsilon * param.grad / norm
+                    param.data.add_(r_at)
+
+    def restore(self, emb_name='word_embeddings'):
+        for name, param in self.model.named_parameters():
+            if param.requires_grad and emb_name in name:
+                assert name in self.backup
+                param.data = self.backup[name]
+        self.backup = {}
+
+# ==========================================
+# KH沼얢 T梳쟏 C횁C L沼숻 H沼?TR沼?(FOCAL LOSS)
+# ==========================================
+class FocalLoss(nn.Module):
+    # V3: T훱ng label_smoothing l챗n 0.15 ch沼몁g h沼뛠 v梳퉡
+    def __init__(self, weight=None, gamma=2.0, reduction='mean', label_smoothing=0.15):
+        super(FocalLoss, self).__init__()
+        self.weight = weight
+        self.gamma = gamma
+        self.reduction = reduction
+        self.label_smoothing = label_smoothing
+
+    def forward(self, inputs, targets):
+        ce_loss = F.cross_entropy(
+            inputs, targets, weight=self.weight,
+            reduction='none', label_smoothing=self.label_smoothing
+        )
+        pt = torch.exp(-ce_loss)
+        focal_loss = ((1 - pt) ** self.gamma) * ce_loss
+
+        if self.reduction == 'mean': return focal_loss.mean()
+        if self.reduction == 'sum': return focal_loss.sum()
+        return focal_loss
+
+# ==========================================
+# B특沼숦 2 & 3: 휂沼똂 D沼?LI沼냋 V? DATALOADER
+# ==========================================
+print("--- 휂沼뛠 v횪 x沼?l첵 d沼?li沼뇎 ---")
+with open('labeled_results_all_v6.json', 'r', encoding='utf-8') as f:
+    raw_data = json.load(f)
+
+def map_label(value):
+    if value == 0.0: return 0
+    elif value == 0.5: return 1
+    elif value == 1.0: return 2
+    return 1
+
+processed_data = []
+for item in raw_data:
+    text = item['original_data']['textTranslated']
+    labels = {l['name']: map_label(l['value']) for l in item['labels']}
+    processed_data.append({
+        'text': text,
+        'Food quality': labels.get('Food quality', 1),
+        'Price': labels.get('Price', 1),
+        'Service quality': labels.get('Service quality', 1),
+        'Atmosphere': labels.get('Atmosphere', 1)
+    })
+
+df = pd.DataFrame(processed_data)
+train_df, val_df = train_test_split(df, test_size=0.2, random_state=42, stratify=df['Atmosphere'])
+
+tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base-v2")
+
+class RestaurantReviewDataset(Dataset):
+    def __init__(self, df, tokenizer, max_len=256):
+        self.texts = df['text'].values
+        self.aspect_labels = df[['Food quality', 'Price', 'Service quality', 'Atmosphere']].values
+        self.tokenizer = tokenizer
+        self.max_len = max_len
+
+    def __len__(self): return len(self.texts)
+
+    def __getitem__(self, index):
+        text = str(self.texts[index])
+        labels = self.aspect_labels[index]
+        encoding = self.tokenizer(
+            text, add_special_tokens=True, max_length=self.max_len,
+            padding='max_length', truncation=True, return_attention_mask=True, return_tensors='pt'
+        )
+        return {
+            'input_ids': encoding['input_ids'].flatten(),
+            'attention_mask': encoding['attention_mask'].flatten(),
+            'labels': torch.tensor(labels, dtype=torch.long)
+        }
+
+BATCH_SIZE = 32
+train_loader = DataLoader(RestaurantReviewDataset(train_df, tokenizer), batch_size=BATCH_SIZE, shuffle=True, num_workers=2, pin_memory=True)
+val_loader = DataLoader(RestaurantReviewDataset(val_df, tokenizer), batch_size=BATCH_SIZE, num_workers=2, pin_memory=True)
+
+# ==========================================
+# B특沼숦 4: M횚 H횑NH PHOBERT ABSA (N횂NG C梳짶 POOLING)
+# ==========================================
+class PhoBertABSA(nn.Module):
+    def __init__(self, n_classes=3, n_aspects=4):
+        super(PhoBertABSA, self).__init__()
+        self.phobert = AutoModel.from_pretrained("vinai/phobert-base-v2")
+        hidden_size = self.phobert.config.hidden_size
+
+        self.fc_pool = nn.Linear(hidden_size * 2, hidden_size)
+
+        self.aspect_projections = nn.ModuleList([
+            nn.Sequential(
+                nn.Linear(hidden_size, 256),
+                nn.LayerNorm(256),
+                nn.GELU(),
+                nn.Dropout(0.40)
+            ) for _ in range(n_aspects)
+        ])
+
+        self.dropouts = nn.ModuleList([nn.Dropout(p=0.20) for _ in range(5)])
+
+        self.classifiers = nn.ModuleList([
+            nn.Linear(256, n_classes) for _ in range(n_aspects)
+        ])
+
+    def forward(self, input_ids, attention_mask):
+        outputs = self.phobert(input_ids=input_ids, attention_mask=attention_mask)
+        last_hidden_state = outputs.last_hidden_state
+
+        input_mask_expanded = attention_mask.unsqueeze(-1).expand(last_hidden_state.size()).float()
+        sum_embeddings = torch.sum(last_hidden_state * input_mask_expanded, 1)
+        sum_mask = input_mask_expanded.sum(1)
+        sum_mask = torch.clamp(sum_mask, min=1e-9)
+        mean_pooled = sum_embeddings / sum_mask
+
+        last_hidden_state[input_mask_expanded == 0] = -1e9
+        max_pooled = torch.max(last_hidden_state, 1)[0]
+
+        pooled_output = torch.cat((mean_pooled, max_pooled), 1)
+        pooled_output = F.relu(self.fc_pool(pooled_output))
+
+        logits = []
+        for i in range(4):
+            aspect_features = self.aspect_projections[i](pooled_output)
+            stacked_logits = torch.stack([
+                self.classifiers[i](drop(aspect_features)) for drop in self.dropouts
+            ], dim=0)
+            logits.append(torch.mean(stacked_logits, dim=0))
+
+        return logits
+
+# ==========================================
+# B특沼숦 5: OPTIMIZER, SCHEDULER & LOSS CHO VERSION 3
+# ==========================================
+model = PhoBertABSA().to(device)
+fgm = FGM(model)
+scaler = torch.amp.GradScaler('cuda')
+
+EPOCHS = 25 # 25 Epochs l횪 휃沼?v沼쌻 OneCycleLR
+MAX_LR = 2e-5
+WEIGHT_DECAY = 0.05 # V3: T훱ng l챗n 0.05 ph梳죜 n梳톘g h퉤n 휃沼?gi梳즡 Overfitting
+PATIENCE = 5
+
+def get_safe_class_weights(labels_array, aspect_name):
+    classes = np.unique(labels_array)
+    weights = compute_class_weight(class_weight='balanced', classes=classes, y=labels_array)
+    weights = np.clip(weights, a_min=0.5, a_max=5.0)
+
+    if aspect_name == 'Atmosphere':
+        weights[0] *= 1.2
+    elif aspect_name == 'Food quality':
+        weights[1] *= 1.1
+    return torch.tensor(weights, dtype=torch.float).to(device)
+
+aspect_columns = ['Food quality', 'Price', 'Service quality', 'Atmosphere']
+loss_fns = []
+for col in aspect_columns:
+    weights = get_safe_class_weights(train_df[col].values, col)
+    # V3: Gamma 2.5, Label smoothing 0.15
+    loss_fns.append(FocalLoss(weight=weights, gamma=2.5, label_smoothing=0.15))
+
+no_decay = ['bias', 'LayerNorm.weight']
+optimizer_grouped_parameters = [
+    {'params': [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)], 'weight_decay': WEIGHT_DECAY},
+    {'params': [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
+]
+optimizer = AdamW(optimizer_grouped_parameters, lr=MAX_LR)
+
+# V3: ONECYCLELR gi첬p h沼셢 t沼?m튼沼즨 m횪 kh척ng b沼?"s沼멵" Learning Rate
+total_steps = len(train_loader) * EPOCHS
+scheduler = OneCycleLR(
+    optimizer,
+    max_lr=MAX_LR,
+    total_steps=total_steps,
+    pct_start=0.1,
+    anneal_strategy='cos',
+    div_factor=10.0,
+    final_div_factor=100.0
+)
+
+history = {
+    'train_loss': [], 'val_loss': [],
+    'train_f1': [], 'val_f1': [], 'val_atmos': []
+}
+
+# ==========================================
+# V횘NG L梳턕 HU梳짴 LUY沼낿
+# ==========================================
+print("\n?? B梳췛 휂梳쪾 QU횁 TR횑NH HU梳짴 LUY沼낿 VERSION 3...")
+best_combined_score = 0.0
+patience_counter = 0
+
+for epoch in range(EPOCHS):
+    print(f"\nEpoch {epoch + 1}/{EPOCHS} (LR b梳칣 휃梳쬾: {optimizer.param_groups[0]['lr']:.2e})")
+
+    # ---------------- TRAINING ----------------
+    model.train()
+    total_loss = 0
+    all_preds, all_targets = [], []
+
+    for batch in tqdm(train_loader, desc="Training"):
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        labels = batch['labels'].to(device)
+
+        optimizer.zero_grad(set_to_none=True)
+
+        with torch.amp.autocast('cuda'):
+            logits = model(input_ids, attention_mask)
+            loss = sum([loss_fns[i](logits[i], labels[:, i]) for i in range(4)])
+            loss += 1.5 * loss_fns[3](logits[3], labels[:, 3])
+
+        scaler.scale(loss).backward()
+
+        # FGM Attack (V3: gi梳즡 epsilon xu沼몁g 0.8 cho an to횪n h퉤n khi d첫ng v沼쌻 OneCycle)
+        fgm.attack(epsilon=0.8)
+        with torch.amp.autocast('cuda'):
+            logits_adv = model(input_ids, attention_mask)
+            loss_adv = sum([loss_fns[i](logits_adv[i], labels[:, i]) for i in range(4)])
+        scaler.scale(loss_adv).backward()
+        fgm.restore()
+
+        scaler.unscale_(optimizer)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+        scaler.step(optimizer)
+        scaler.update()
+
+        # V3: SCHEDULER B梳췛 BU沼쁂 휂沼?TRONG V횘NG L梳턕 BATCH (C沼쬪 OneCycleLR)
+        scheduler.step()
+
+        total_loss += loss.item()
+
+        for i in range(4):
+            preds = torch.argmax(logits[i], dim=1)
+            all_preds.extend(preds.cpu().numpy())
+            all_targets.extend(labels[:, i].cpu().numpy())
+
+    train_f1 = f1_score(all_targets, all_preds, average='macro', zero_division=0)
+
+    # ---------------- VALIDATION ----------------
+    model.eval()
+    val_loss = 0
+    val_preds, val_targets = [], []
+
+    with torch.no_grad():
+        for batch in tqdm(val_loader, desc="Validation"):
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch['attention_mask'].to(device)
+            labels = batch['labels'].to(device)
+
+            with torch.amp.autocast('cuda'):
+                logits = model(input_ids, attention_mask)
+                v_loss = sum([loss_fns[i](logits[i], labels[:, i]) for i in range(4)])
+
+            val_loss += v_loss.item()
+
+            for i in range(4):
+                probs = F.softmax(logits[i], dim=1)
+                preds = torch.argmax(logits[i], dim=1)
+
+                if i == 3: # Atmosphere
+                    preds[probs[:, 0] >= 0.40] = 0
+                    mask_positive = (probs[:, 2] >= 0.40) & (probs[:, 0] < 0.40)
+                    preds[mask_positive] = 2
+                elif i == 0: # Food
+                    mask_food_pos = (probs[:, 2] >= 0.45) & (preds == 1)
+                    preds[mask_food_pos] = 2
+
+                val_preds.extend(preds.cpu().numpy())
+                val_targets.extend(labels[:, i].cpu().numpy())
+
+    atmos_preds = [val_preds[idx] for idx in range(len(val_preds)) if (idx % 4) == 3]
+    atmos_targets = [val_targets[idx] for idx in range(len(val_targets)) if (idx % 4) == 3]
+
+    val_f1_all = f1_score(val_targets, val_preds, average='macro', zero_division=0)
+    val_f1_atmos = f1_score(atmos_targets, atmos_preds, average='macro', zero_division=0)
+
+    avg_train_loss = total_loss/len(train_loader)
+    avg_val_loss = val_loss/len(val_loader)
+
+    print(f"Train Loss: {avg_train_loss:.4f} | Train F1: {train_f1:.4f}")
+    print(f"Val Loss: {avg_val_loss:.4f} | Val F1: {val_f1_all:.4f} | Val Atmos F1: {val_f1_atmos:.4f}")
+
+    history['train_loss'].append(avg_train_loss)
+    history['val_loss'].append(avg_val_loss)
+    history['train_f1'].append(train_f1)
+    history['val_f1'].append(val_f1_all)
+    history['val_atmos'].append(val_f1_atmos)
+
+    combined_score = (0.5 * val_f1_all) + (0.5 * val_f1_atmos)
+    if combined_score > best_combined_score:
+        print(f"?뙚 C梳즜 thi沼뇆! 휂i沼긩 t沼븂g h沼즤: {best_combined_score:.4f} -> {combined_score:.4f}. L튼u best_phobert_v3.pth")
+        best_combined_score = combined_score
+        # V3: 휂沼뷼 t챗n file l튼u tr沼?th횪nh _v3
+        torch.save(model.state_dict(), 'best_phobert_v3.pth')
+        patience_counter = 0
+    else:
+        patience_counter += 1
+        if patience_counter >= PATIENCE:
+            print(f"??K챠ch ho梳죜 Early Stopping t梳죍 Epoch {epoch + 1}!")
+            break
+
+# ==========================================
+# B특沼숦 6: T沼?휂沼쁍G V梳?BI沼괮 휂沼?V? XU梳짽 CONFUSION MATRIX
+# ==========================================
+print("\n" + "="*60)
+print("--- B특沼숦 6: V梳?BI沼괮 휂沼?& 휂횁NH GI횁 M횚 H횑NH ---")
+print("="*60)
+
+epochs_range = range(1, len(history['train_loss']) + 1)
+plt.figure(figsize=(18, 5))
+
+plt.subplot(1, 3, 1)
+plt.plot(epochs_range, history['train_loss'], label='Train Loss', marker='o', linewidth=2)
+plt.plot(epochs_range, history['val_loss'], label='Validation Loss', marker='o', linewidth=2)
+plt.title('Loss qua c찼c Epoch (V3)', fontsize=12, fontweight='bold')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+
+plt.subplot(1, 3, 2)
+plt.plot(epochs_range, history['train_f1'], label='Train Macro F1', marker='o', color='purple', linewidth=2)
+plt.plot(epochs_range, history['val_f1'], label='Val Macro F1', marker='o', color='red', linewidth=2)
+plt.title('T沼븂g h沼즤 F1-Score (V3)', fontsize=12, fontweight='bold')
+plt.xlabel('Epoch')
+plt.ylabel('F1 Score')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+
+plt.subplot(1, 3, 3)
+plt.plot(epochs_range, history['val_atmos'], label='Val Atmos F1', marker='o', color='teal', linewidth=2)
+plt.title('F1-Score Atmosphere (V3)', fontsize=12, fontweight='bold')
+plt.xlabel('Epoch')
+plt.ylabel('F1 Score')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+
+plt.tight_layout()
+plt.show()
+
+# 2. XU梳짽 CONFUSION MATRIX
+print(f"-> 휂ang t梳즜 tr沼뛫g s沼?t沼멼 튼u t沼?'best_phobert_v3.pth' 휃沼?ph창n t챠ch...")
+model.load_state_dict(torch.load('best_phobert_v3.pth', weights_only=True))
+model.eval()
+
+all_preds = {0: [], 1: [], 2: [], 3: []}
+all_labels = {0: [], 1: [], 2: [], 3: []}
+
+with torch.no_grad():
+    for batch in tqdm(val_loader, desc="휂ang 휃찼nh gi찼 t梳춑 Validation"):
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        labels = batch['labels'].to(device)
+
+        with torch.amp.autocast('cuda'):
+            logits = model(input_ids, attention_mask)
+
+        for i in range(4):
+            preds = torch.argmax(logits[i], dim=1)
+            probs = F.softmax(logits[i], dim=1)
+
+            if i == 3:
+                preds[probs[:, 0] >= 0.40] = 0
+                mask_positive = (probs[:, 2] >= 0.40) & (probs[:, 0] < 0.40)
+                preds[mask_positive] = 2
+            elif i == 0:
+                mask_food_pos = (probs[:, 2] >= 0.45) & (preds == 1)
+                preds[mask_food_pos] = 2
+
+            all_preds[i].extend(preds.cpu().numpy())
+            all_labels[i].extend(labels[:, i].cpu().numpy())
+
+class_names = ['Ti챗u c沼켧 (0)', 'Trung t챠nh (1)', 'T챠ch c沼켧 (2)']
+fig, axes = plt.subplots(2, 2, figsize=(15, 13))
+axes = axes.flatten()
+
+for i in range(4):
+    cm = confusion_matrix(all_labels[i], all_preds[i], labels=[0, 1, 2])
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=axes[i],
+                xticklabels=class_names, yticklabels=class_names,
+                annot_kws={"size": 12, "weight": "bold"})
+
+    axes[i].set_title(f'Confusion Matrix: {aspect_columns[i]}', fontsize=14, fontweight='bold')
+    axes[i].se
+
+============================================================
+FILE: master_23_06.ipynb
+============================================================
+--- Cell 1 ---
+import json
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import Dataset, DataLoader
+from transformers import AutoModel, AutoTokenizer
+from torch.optim import AdamW
+from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
+from sklearn.model_selection import train_test_split
+from sklearn.utils.class_weight import compute_class_weight
+from sklearn.metrics import confusion_matrix, f1_score
+import pandas as pd
+import numpy as np
+from tqdm import tqdm
+
+# ==========================================
+# C梳짾 H횑NH CHI梳푇 THU梳촖 N횂NG C梳짶 V2
+# ==========================================
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"?? 휂ang ch梳죣 CHI梳푇 THU梳촖 N횂NG C梳짶 V2 tr챗n thi梳퓍 b沼? {device}\n")
+
+# ==========================================
+# FGM - FAST GRADIENT METHOD (Adversarial Training)
+# Gi첬p m척 h챙nh ch沼몁g overfitting v횪 t훱ng F1-Score
+# ==========================================
+class FGM:
+    def __init__(self, model):
+        self.model = model
+        self.backup = {}
+
+    def attack(self, epsilon=1.0, emb_name='word_embeddings'):
+        for name, param in self.model.named_parameters():
+            if param.requires_grad and emb_name in name:
+                self.backup[name] = param.data.clone()
+                norm = torch.norm(param.grad)
+                if norm != 0 and not torch.isnan(norm):
+                    r_at = epsilon * param.grad / norm
+                    param.data.add_(r_at)
+
+    def restore(self, emb_name='word_embeddings'):
+        for name, param in self.model.named_parameters():
+            if param.requires_grad and emb_name in name:
+                assert name in self.backup
+                param.data = self.backup[name]
+        self.backup = {}
+
+# ==========================================
+# KH沼얢 T梳쟏 C횁C L沼숻 H沼?TR沼?(FOCAL LOSS)
+# ==========================================
+class FocalLoss(nn.Module):
+    def __init__(self, weight=None, gamma=2.0, reduction='mean', label_smoothing=0.1):
+        super(FocalLoss, self).__init__()
+        self.weight = weight
+        self.gamma = gamma
+        self.reduction = reduction
+        self.label_smoothing = label_smoothing
+
+    def forward(self, inputs, targets):
+        ce_loss = F.cross_entropy(
+            inputs, targets, weight=self.weight,
+            reduction='none', label_smoothing=self.label_smoothing
+        )
+        pt = torch.exp(-ce_loss)
+        focal_loss = ((1 - pt) ** self.gamma) * ce_loss
+
+        if self.reduction == 'mean': return focal_loss.mean()
+        if self.reduction == 'sum': return focal_loss.sum()
+        return focal_loss
+
+# ==========================================
+# B특沼숦 2 & 3: 휂沼똂 D沼?LI沼냋 V? DATALOADER
+# ==========================================
+print("--- 휂沼뛠 v횪 x沼?l첵 d沼?li沼뇎 ---")
+with open('labeled_results_all_v6.json', 'r', encoding='utf-8') as f:
+    raw_data = json.load(f)
+
+def map_label(value):
+    if value == 0.0: return 0
+    elif value == 0.5: return 1
+    elif value == 1.0: return 2
+    return 1
+
+processed_data = []
+for item in raw_data:
+    text = item['original_data']['textTranslated']
+    labels = {l['name']: map_label(l['value']) for l in item['labels']}
+    processed_data.append({
+        'text': text,
+        'Food quality': labels.get('Food quality', 1),
+        'Price': labels.get('Price', 1),
+        'Service quality': labels.get('Service quality', 1),
+        'Atmosphere': labels.get('Atmosphere', 1)
+    })
+
+df = pd.DataFrame(processed_data)
+train_df, val_df = train_test_split(df, test_size=0.2, random_state=42, stratify=df['Atmosphere'])
+
+tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base-v2")
+
+class RestaurantReviewDataset(Dataset):
+    def __init__(self, df, tokenizer, max_len=256):
+        self.texts = df['text'].values
+        self.aspect_labels = df[['Food quality', 'Price', 'Service quality', 'Atmosphere']].values
+        self.tokenizer = tokenizer
+        self.max_len = max_len
+
+    def __len__(self): return len(self.texts)
+
+    def __getitem__(self, index):
+        text = str(self.texts[index])
+        labels = self.aspect_labels[index]
+        encoding = self.tokenizer(
+            text, add_special_tokens=True, max_length=self.max_len,
+            padding='max_length', truncation=True, return_attention_mask=True, return_tensors='pt'
+        )
+        return {
+            'input_ids': encoding['input_ids'].flatten(),
+            'attention_mask': encoding['attention_mask'].flatten(),
+            'labels': torch.tensor(labels, dtype=torch.long)
+        }
+
+BATCH_SIZE = 32
+train_loader = DataLoader(RestaurantReviewDataset(train_df, tokenizer), batch_size=BATCH_SIZE, shuffle=True, num_workers=4, pin_memory=True)
+val_loader = DataLoader(RestaurantReviewDataset(val_df, tokenizer), batch_size=BATCH_SIZE, num_workers=4, pin_memory=True)
+
+# ==========================================
+# B특沼숦 4: M횚 H횑NH PHOBERT ABSA (N횂NG C梳짶 POOLING)
+# ==========================================
+class PhoBertABSA(nn.Module):
+    def __init__(self, n_classes=3, n_aspects=4):
+        super(PhoBertABSA, self).__init__()
+        self.phobert = AutoModel.from_pretrained("vinai/phobert-base-v2")
+        hidden_size = self.phobert.config.hidden_size
+
+        # Concat Mean Pooling v횪 Max Pooling (x2 hidden_size)
+        self.fc_pool = nn.Linear(hidden_size * 2, hidden_size)
+
+        self.aspect_projections = nn.ModuleList([
+            nn.Sequential(
+                nn.Linear(hidden_size, 256),
+                nn.LayerNorm(256),
+                nn.GELU(),
+                nn.Dropout(0.40)
+            ) for _ in range(n_aspects)
+        ])
+
+        self.dropouts = nn.ModuleList([nn.Dropout(p=0.20) for _ in range(5)])
+
+        self.classifiers = nn.ModuleList([
+            nn.Linear(256, n_classes) for _ in range(n_aspects)
+        ])
+
+    def forward(self, input_ids, attention_mask):
+        outputs = self.phobert(input_ids=input_ids, attention_mask=attention_mask)
+        last_hidden_state = outputs.last_hidden_state
+
+        # Mean Pooling
+        input_mask_expanded = attention_mask.unsqueeze(-1).expand(last_hidden_state.size()).float()
+        sum_embeddings = torch.sum(last_hidden_state * input_mask_expanded, 1)
+        sum_mask = input_mask_expanded.sum(1)
+        sum_mask = torch.clamp(sum_mask, min=1e-9)
+        mean_pooled = sum_embeddings / sum_mask
+
+        # Max Pooling
+        last_hidden_state[input_mask_expanded == 0] = -1e9  # 휂梳톞 gi찼 tr沼?r梳쩿 nh沼?cho padding
+        max_pooled = torch.max(last_hidden_state, 1)[0]
+
+        # K梳퓍 h沼즤 Mean v횪 Max Pooling
+        pooled_output = torch.cat((mean_pooled, max_pooled), 1)
+        pooled_output = F.relu(self.fc_pool(pooled_output))
+
+        logits = []
+        for i in range(4):
+            aspect_features = self.aspect_projections[i](pooled_output)
+            stacked_logits = torch.stack([
+                self.classifiers[i](drop(aspect_features)) for drop in self.dropouts
+            ], dim=0)
+            logits.append(torch.mean(stacked_logits, dim=0))
+
+        return logits
+
+model = PhoBertABSA().to(device)
+
+# ==========================================
+# B특沼숦 5: OPTIMIZER & LOSS
+# ==========================================
+EPOCHS = 40
+MAX_LR = 2e-5
+WEIGHT_DECAY = 0.01
+PATIENCE = 7
+
+# H횪m l梳쪅 tr沼뛫g s沼?c창n b梳켷g
+def get_safe_class_weights(labels_array, aspect_name):
+    classes = np.unique(labels_array)
+    weights = compute_class_weight(class_weight='balanced', classes=classes, y=labels_array)
+    weights = np.clip(weights, a_min=0.5, a_max=5.0) # Gi梳즡 tr梳쬷 weight 휃沼?tr찼nh m척 h챙nh b沼?l沼놻h qu찼 m沼쯢
+
+    # 휂i沼걏 ch沼뎝h nh梳?cho Atmosphere v횪 Food
+    if aspect_name == 'Atmosphere':
+        weights[0] *= 1.2 # Ph梳죜 n梳톘g h퉤n khi 휃o찼n sai Ti챗u c沼켧
+    elif aspect_name == 'Food quality':
+        weights[1] *= 1.1
+
+    return torch.tensor(weights, dtype=torch.float).to(device)
+
+aspect_columns = ['Food quality', 'Price', 'Service quality', 'Atmosphere']
+loss_fns = []
+for col in aspect_columns:
+    weights = get_safe_class_weights(train_df[col].values, col)
+    # Gamma=2.5 t梳춑 trung m梳죒h h퉤n v횪o c찼c m梳쳕 kh처 휃o찼n (nh梳쬶 l梳쳌 Neutral/Positive)
+    loss_fns.append(FocalLoss(weight=weights, gamma=2.5, label_smoothing=0.1))
+
+optimizer = AdamW(model.parameters(), lr=MAX_LR, weight_decay=WEIGHT_DECAY)
+# S沼?d沼쩸g Cosine Annealing 휃沼?v튼沼즨 local minima hi沼뇎 qu梳?h퉤n Linear
+scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2, eta_min=1e-6)
+
+# ==========================================
+# V횘NG L梳턕 HU梳짴 LUY沼낿
+# ==========================================
+fgm = FGM(model)
+scaler = torch.cuda.amp.GradScaler()
+
+best_combined_score = 0.0
+patience_counter = 0
+
+for epoch in range(EPOCHS):
+    print(f"\nEpoch {epoch + 1}/{EPOCHS}")
+
+    # ---------------- TRAINING ----------------
+    model.train()
+    total_loss, total_correct, total_samples = 0, 0, 0
+    all_preds, all_targets = [], []
+
+    for batch in tqdm(train_loader, desc="Training"):
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        labels = batch['labels'].to(device)
+
+        optimizer.zero_grad(set_to_none=True)
+
+        # 1. Forward pass chu梳쯰
+        with torch.cuda.amp.autocast():
+            logits = model(input_ids, attention_mask)
+            loss = sum([loss_fns[i](logits[i], labels[:, i]) for i in range(4)])
+
+            # T훱ng tr沼뛫g s沼?loss cho Atmosphere
+            loss += 1.5 * loss_fns[3](logits[3], labels[:, 3])
+
+        scaler.scale(loss).backward()
+
+        # 2. FGM Attack (Adversarial Training)
+        fgm.attack()
+        with torch.cuda.amp.autocast():
+            logits_adv = model(input_ids, attention_mask)
+            loss_adv = sum([loss_fns[i](logits_adv[i], labels[:, i]) for i in range(4)])
+        scaler.scale(loss_adv).backward()
+        fgm.restore() # Kh척i ph沼쩭 tr沼뛫g s沼?g沼멵
+
+        scaler.unscale_(optimizer)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+        scaler.step(optimizer)
+        scaler.update()
+
+        total_loss += loss.item()
+
+        for i in range(4):
+            preds = torch.argmax(logits[i], dim=1)
+            total_correct += (preds == labels[:, i]).sum().item()
+            total_samples += labels.size(0)
+            all_preds.extend(preds.cpu().numpy())
+            all_targets.extend(labels[:, i].cpu().numpy())
+
+    scheduler.step()
+    train_f1 = f1_score(all_targets, all_preds, average='macro', zero_division=0)
+
+    # ---------------- VALIDATION ----------------
+    model.eval()
+    val_loss, val_correct, val_samples = 0, 0, 0
+    val_preds, val_targets = [], []
+
+    with torch.no_grad():
+        for batch in tqdm(val_loader, desc="Validation"):
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch['attention_mask'].to(device)
+            labels = batch['labels'].to(device)
+
+            with torch.cuda.amp.autocast():
+                logits = model(input_ids, attention_mask)
+                v_loss = sum([loss_fns[i](logits[i], labels[:, i]) for i in range(4)])
+
+            val_loss += v_loss.item()
+
+            for i in range(4):
+                probs = F.softmax(logits[i], dim=1)
+                preds = torch.argmax(logits[i], dim=1)
+
+                # Logic Threshold 휃沼셬g gi첬p h梳죒 ch梳?nh梳쬶 l梳쳌 Neutral (1) v횪 Positive (2)
+                if i == 3: # Atmosphere
+                    mask_pos = (probs[:, 2] > 0.45) & (preds == 1)
+                    preds[mask_pos] = 2
+
+                val_correct += (preds == labels[:, i]).sum().item()
+                val_samples += labels.size(0)
+                val_preds.extend(preds.cpu().numpy())
+                val_targets.extend(labels[:, i].cpu().numpy())
+
+    atmos_preds = [val_preds[idx] for idx in range(len(val_preds)) if (idx % 4) == 3]
+    atmos_targets = [val_targets[idx] for idx in range(len(val_targets)) if (idx % 4) == 3]
+
+    val_f1_all = f1_score(val_targets, val_preds, average='macro', zero_division=0)
+    val_f1_atmos = f1_score(atmos_targets, atmos_preds, average='macro', zero_division=0)
+
+    print(f"Train Loss: {total_loss/len(train_loader):.4f} | Train F1: {train_f1:.4f}")
+    print(f"Val Loss: {val_loss/len(val_loader):.4f} | Val F1: {val_f1_all:.4f} | Val Atmos F1: {val_f1_atmos:.4f}")
+
+    # 휂찼nh gi찼 d沼켥 tr챗n t沼븂g F1 v횪 F1 c沼쬪 Atmosphere
+    combined_score = (0.5 * val_f1_all) + (0.5 * val_f1_atmos)
+
+    if combined_score > best_combined_score:
+        print(f"?뙚 C梳즜 thi沼뇆! 휂i沼긩 t沼븂g h沼즤: {best_combined_score:.4f} -> {combined_score:.4f}. L튼u best_phobert_absa.pth")
+        best_combined_score = combined_score
+        torch.save(model.state_dict(), 'best_phobert_absa.pth')
+        patience_counter = 0
+    else:
+        patience_counter += 1
+        if patience_counter >= PATIENCE:
+            print("??K챠ch ho梳죜 Early Stopping!")
+            break
+
+# ==========================================
+# B특沼숦 6: 휂횁NH GI횁 CHI TI梳푍 & XU梳짽 CONFUSION MATRIX
+# ==========================================
+print("\n--- B특沼숦 6: V梳?bi沼긳 휃沼?v횪 Xu梳쩿 Confusion Matrix ---")
+
+epochs_range = range(1, len(history['train_loss']) + 1)
+plt.figure(figsize=(18, 5))
+
+plt.subplot(1, 3, 1)
+plt.plot(epochs_range, history['train_loss'], label='Train Loss', marker='o', linewidth=2)
+plt.plot(epochs_range, history['val_loss'], label='Validation Loss', marker='o', linewidth=2)
+plt.title('Bi沼긳 휃沼?Loss qua c찼c Epoch', fontsize=12, fontweight='bold')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+
+plt.subplot(1, 3, 2)
+plt.plot(epochs_range, history['train_acc'], label='Train Acc', marker='o', color='green', linewidth=2)
+plt.plot(epochs_range, history['val_acc'], label='Val Acc', marker='o', color='orange', linewidth=2)
+plt.title('Bi沼긳 휃沼?Accuracy qua c찼c Epoch', fontsize=12, fontweight='bold')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+
+plt.subplot(1, 3, 3)
+plt.plot(epochs_range, history['train_f1'], label='Train F1', marker='o', color='purple', linewidth=2)
+plt.plot(epochs_range, history['val_f1'], label='Val F1', marker='o', color='red', linewidth=2)
+plt.title('Bi沼긳 휃沼?Macro F1-Score qua c찼c Epoch', fontsize=12, fontweight='bold')
+plt.xlabel('Epoch')
+plt.ylabel('Macro F1')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+
+plt.tight_layout()
+plt.show()
+
+print(f"-> 휂ang t梳즜 tr沼뛫g s沼?t沼멼 튼u t沼?'best_phobert_absa.pth' 휃沼?ph창n t챠ch chi ti梳퓍...")
+model.load_state_dict(torch.load('best_phobert_absa.pth'))
+model.eval()
+
+all_preds = {0: [], 1: [], 2: [], 3: []}
+all_labels = {0: [], 1: [], 2: [], 3: []}
+
+with torch.no_grad():
+    for batch in tqdm(val_loader, desc="휂ang 휃찼nh gi찼 t梳춑 Validation"):
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        labels = batch['labels'].to(device)
+
+        with torch.cuda.amp.autocast():
+            logits = model(input_ids, attention_mask)
+
+        for i in range(4):
+            preds = torch.argmax(logits[i], dim=1)
+            probs = F.softmax(logits[i], dim=1)
+
+            if i == 3:
+                preds[probs[:, 0] >= 0.40] = 0
+                mask_positive = (probs[:, 2] >= 0.40) & (probs[:, 0] < 0.40)
+                preds[mask_positive] = 2
+            elif i == 0:
+                mask_food_pos = (probs[:, 2] >= 0.45) & (preds == 1)
+                preds[mask_food_pos] = 2
+
+            all_preds[i].extend(preds.cpu().numpy())
+            all_labels[i].extend(labels[:, i].cpu().numpy())
+
+class_names = ['Ti챗u c沼켧 (0)', 'Trung t챠nh (1)', 'T챠ch c沼켧 (2)']
+fig, axes = plt.subplots(2, 2, figsize=(15, 13))
+axes = axes.flatten()
+
+for i in range(4):
+    cm = confusion_matrix(all_labels[i], all_preds[i], labels=[0, 1, 2])
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=axes[i],
+                xticklabels=class_names, yticklabels=class_names,
+                annot_kws={"size": 12, "weight": "bold"})
+
+    axes[i].set_title(f'Confusion Matrix: {aspect_columns[i]}', fontsize=14, fontweight='bold')
+    axes[i].set_xlabel('Nh찾n D沼?휂o찼n', fontsize=11)
+    axes[i].set_ylabel('Nh찾n Th沼켧 T梳?, fontsize=11)
+
+plt.tight_layout()
+plt.show()
+
+print("\n" + "="*60)
+print(f"?뵦 B梳줟G CONFUSION MATRIX 휂沼둕H D梳쟍G MARKDOWN (CHI梳푇 THU梳촖 S沼?{CHOSEN_STRATEGY})")
+print("="*60)
+
+for i in range(4):
+    cm = confusion_matrix(all_labels[i], all_preds[i], labels=[0, 1, 2])
+    df_cm = pd.DataFrame(
+        cm,
+        index=[f'Th沼켧 t梳?{c}' for c in class_names],
+        columns=[f'D沼?휃o찼n {c}' for c in class_names]
+    )
+    print(f"\n### ?렞 Kh챠a c梳죒h: {aspect_columns[i]}")
+    print(df_cm.to_markdown())
+
+
