@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Label Review Tool – ProjectMaster</title>
+  <meta name="description" content="Công cụ kiểm tra và chỉnh sửa nhãn dữ liệu theo từng tiêu chí: Food quality, Price, Service quality, Atmosphere" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #0d0f1a;
+      --bg-secondary: #131625;
+      --bg-card: #1a1d2e;
+      --bg-card-hover: #1f2338;
+      --border: #2a2d45;
+      --border-glow: #4f52d0;
+      --text-primary: #e8eaf6;
+      --text-secondary: #9ea3c8;
+      --text-muted: #5c6080;
+      --accent: #6c6ff7;
+      --accent-dim: #4548b5;
+      --accent-glow: rgba(108, 111, 247, 0.3);
+      --val-0-bg: rgba(239, 68, 68, 0.15);
+      --val-0-border: rgba(239, 68, 68, 0.6);
+      --val-0-text: #f87171;
+      --val-05-bg: rgba(251, 191, 36, 0.15);
+      --val-05-border: rgba(251, 191, 36, 0.6);
+      --val-05-text: #fbbf24;
+      --val-1-bg: rgba(52, 211, 153, 0.15);
+      --val-1-border: rgba(52, 211, 153, 0.6);
+      --val-1-text: #34d399;
+      --food-color: #f472b6;
+      --atmosphere-color: #a78bfa;
+      --price-color: #38bdf8;
+      --service-color: #34d399;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
+
+    header {
+      background: linear-gradient(135deg, #1a1d2e 0%, #141729 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      max-width: 1500px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), #9b5cf7);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .stats-bar { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .stat-pill {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 5px 14px; font-size: 12px; color: var(--text-secondary);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .stat-pill strong { font-weight: 700; }
+    .header-actions { display: flex; gap: 8px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500;
+      cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: all 0.2s ease;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #7c7ff9; box-shadow: 0 0 16px var(--accent-glow); transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: var(--bg-card); color: var(--text-primary); border-color: var(--accent); }
+    .btn-danger { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.4); }
+    .btn-danger:hover { background: rgba(239,68,68,0.25); }
+
+    .layout {
+      max-width: 1500px; margin: 0 auto; padding: 20px 24px;
+      display: grid; grid-template-columns: 310px 1fr; gap: 20px;
+      min-height: calc(100vh - 64px);
+    }
+    .sidebar { display: flex; flex-direction: column; gap: 16px; }
+    .panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .panel-header {
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 11.5px; font-weight: 700; color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.07em;
+    }
+    .upload-area { padding: 18px; }
+    .drop-zone {
+      border: 2px dashed var(--border); border-radius: 10px;
+      padding: 28px 16px; cursor: pointer; transition: all 0.2s ease;
+      position: relative; text-align: center;
+    }
+    .drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); background: var(--accent-glow); }
+    .drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .drop-icon { font-size: 36px; margin-bottom: 8px; }
+    .drop-text { font-size: 13px; color: var(--text-secondary); }
+    .drop-text strong { color: var(--accent); }
+
+    .filters { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+    .filter-group label {
+      display: block; font-size: 11px; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px;
+    }
+    .filter-group select, .filter-group input {
+      width: 100%; background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 10px; color: var(--text-primary);
+      font-family: 'Inter', sans-serif; font-size: 13px; outline: none; transition: border-color 0.2s;
+    }
+    .filter-group select:focus, .filter-group input:focus { border-color: var(--accent); }
+    .filter-group select option { background: #1a1d2e; }
+    .chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip { padding: 5px 11px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid transparent; transition: all 0.18s; user-select: none; }
+    .chip-all { background: rgba(108,111,247,0.12); color: var(--accent); border-color: rgba(108,111,247,0.3); }
+    .chip-all.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .chip-0 { background: var(--val-0-bg); color: var(--val-0-text); border-color: transparent; opacity: 0.55; }
+    .chip-0.active, .chip-0:hover { opacity: 1; border-color: var(--val-0-border); }
+    .chip-05 { background: var(--val-05-bg); color: var(--val-05-text); border-color: transparent; opacity: 0.55; }
+    .chip-05.active, .chip-05:hover { opacity: 1; border-color: var(--val-05-border); }
+    .chip-1 { background: var(--val-1-bg); color: var(--val-1-text); border-color: transparent; opacity: 0.55; }
+    .chip-1.active, .chip-1:hover { opacity: 1; border-color: var(--val-1-border); }
+
+    .progress-section { padding: 14px 16px; }
+    .progress-item { margin-bottom: 14px; }
+    .progress-item:last-child { margin-bottom: 0; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; }
+    .progress-name { color: var(--text-secondary); font-weight: 600; }
+    .dist-nums { display: flex; gap: 8px; font-size: 11px; margin-bottom: 5px; }
+    .progress-bar-bg { height: 7px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; display: flex; gap: 2px; }
+    .progress-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+
+    .changes-log { max-height: 220px; overflow-y: auto; }
+    .change-item { padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 12px; display: flex; align-items: flex-start; gap: 8px; }
+    .change-item:last-child { border-bottom: none; }
+    .change-dot { width: 7px; height: 7px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+    .change-info { flex: 1; }
+    .change-idx { color: var(--text-muted); font-size: 11px; margin-bottom: 2px; }
+    .change-empty { padding: 20px; text-align: center; color: var(--text-muted); font-size: 12px; }
+
+    .main-area { display: flex; flex-direction: column; gap: 16px; }
+    .toolbar {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .toolbar-left { display: flex; align-items: center; gap: 10px; }
+    .toolbar-right { display: flex; align-items: center; gap: 10px; }
+    .search-wrap { position: relative; width: 300px; }
+    .search-wrap input {
+      width: 100%; background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 10px 8px 36px; color: var(--text-primary);
+      font-family: 'Inter', sans-serif; font-size: 13px; outline: none; transition: border-color 0.2s;
+    }
+    .search-wrap input:focus { border-color: var(--accent); }
+    .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 15px; pointer-events: none; }
+    .page-info { font-size: 13px; color: var(--text-secondary); white-space: nowrap; }
+    .legend { display: flex; gap: 12px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--text-secondary); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 14px; }
+    .review-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 16px; transition: all 0.25s ease; position: relative;
+    }
+    .review-card:hover { border-color: #3d408a; box-shadow: 0 4px 24px rgba(79,82,208,0.12); }
+    .review-card.modified { border-color: rgba(251,191,36,0.5); box-shadow: 0 0 14px rgba(251,191,36,0.08); }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; gap: 8px; }
+    .card-meta { flex: 1; min-width: 0; }
+    .card-index { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px; }
+    .card-title { font-size: 13.5px; font-weight: 700; color: var(--text-primary); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card-date { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+    .modified-badge {
+      background: rgba(251,191,36,0.15); color: #fbbf24; font-size: 10px; font-weight: 700;
+      padding: 3px 9px; border-radius: 10px; border: 1px solid rgba(251,191,36,0.4);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .card-text {
+      font-size: 12.5px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 8px;
+      max-height: 76px; overflow: hidden; position: relative;
+    }
+    .card-text.expanded { max-height: none; }
+    .read-more { font-size: 11px; color: var(--accent); cursor: pointer; background: none; border: none; padding: 0 0 8px; font-family: 'Inter', sans-serif; }
+    .card-reasoning {
+      background: rgba(108,111,247,0.07); border-left: 2px solid var(--accent);
+      padding: 7px 10px; border-radius: 0 7px 7px 0; font-size: 11.5px;
+      color: var(--text-secondary); font-style: italic; margin-bottom: 12px; line-height: 1.5;
+    }
+    .labels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .label-item {
+      background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px; transition: border-color 0.2s;
+    }
+    .label-item.hl-food { border-color: rgba(244,114,182,0.4); background: rgba(244,114,182,0.04); }
+    .label-item.hl-atmo { border-color: rgba(167,139,250,0.4); background: rgba(167,139,250,0.04); }
+    .label-name { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 7px; }
+    .label-name.food { color: var(--food-color); }
+    .label-name.price { color: var(--price-color); }
+    .label-name.service { color: var(--service-color); }
+    .label-name.atmosphere { color: var(--atmosphere-color); }
+    .val-btns { display: flex; gap: 4px; }
+    .val-btn {
+      flex: 1; padding: 6px 0; border-radius: 7px; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; border: 1px solid transparent; transition: all 0.15s ease; text-align: center; font-family: 'Inter', sans-serif;
+    }
+    .val-btn-0 { background: var(--val-0-bg); color: var(--val-0-text); }
+    .val-btn-0.active { border-color: var(--val-0-border); box-shadow: 0 0 10px rgba(239,68,68,0.3); }
+    .val-btn-0:hover { border-color: var(--val-0-border); }
+    .val-btn-05 { background: var(--val-05-bg); color: var(--val-05-text); }
+    .val-btn-05.active { border-color: var(--val-05-border); box-shadow: 0 0 10px rgba(251,191,36,0.3); }
+    .val-btn-05:hover { border-color: var(--val-05-border); }
+    .val-btn-1 { background: var(--val-1-bg); color: var(--val-1-text); }
+    .val-btn-1.active { border-color: var(--val-1-border); box-shadow: 0 0 10px rgba(52,211,153,0.3); }
+    .val-btn-1:hover { border-color: var(--val-1-border); }
+
+    .empty-state { grid-column: 1/-1; text-align: center; padding: 70px 20px; color: var(--text-muted); }
+    .empty-icon { font-size: 52px; margin-bottom: 14px; }
+    .empty-title { font-size: 17px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; }
+    .empty-sub { font-size: 13px; }
+
+    .loading-overlay {
+      position: fixed; inset: 0; background: rgba(13,15,26,0.9);
+      display: flex; align-items: center; justify-content: center; z-index: 999; backdrop-filter: blur(6px);
+    }
+    .loading-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 36px 48px; text-align: center; }
+    .spinner { width: 44px; height: 44px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.75s linear infinite; margin: 0 auto 18px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .loading-sub { font-size: 13px; color: var(--text-secondary); }
+
+    .pagination { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 16px 0; }
+    .page-btn {
+      min-width: 36px; height: 36px; border-radius: 8px; background: var(--bg-card);
+      border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; font-family: 'Inter', sans-serif;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; padding: 0 10px;
+    }
+    .page-btn:hover { border-color: var(--accent); color: var(--text-primary); }
+    .page-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
+    .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 13px 20px; font-size: 13px; color: var(--text-primary); z-index: 9999;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4); animation: slide-up 0.3s ease; max-width: 340px;
+    }
+    .toast.success { border-color: rgba(52,211,153,0.6); }
+    .toast.error { border-color: rgba(239,68,68,0.6); }
+    @keyframes slide-up { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+  </style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loadingOverlay" style="display:none">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <div class="loading-title">Đang tải dữ liệu…</div>
+    <div class="loading-sub" id="loadingProgress">Vui lòng chờ</div>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🏷️</div>
+      Label Review Tool
+    </div>
+    <div class="stats-bar" id="statsBar" style="display:none">
+      <div class="stat-pill">📦 Tổng: <strong id="statTotal">0</strong></div>
+      <div class="stat-pill"><span style="color:#f472b6">🍽 Food 0.5:</span> <strong id="statFood" style="color:#f472b6">—</strong></div>
+      <div class="stat-pill"><span style="color:#a78bfa">✨ Atmo 0.5:</span> <strong id="statAtmo" style="color:#a78bfa">—</strong></div>
+      <div class="stat-pill">✏️ Đã sửa: <strong id="statChanged" style="color:#fbbf24">0</strong></div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-ghost" id="exportBtn" style="display:none" onclick="exportData()">⬇ Xuất JSON</button>
+      <button class="btn btn-danger" id="resetBtn" style="display:none" onclick="resetChanges()">↺ Reset</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="panel">
+      <div class="panel-header"><span>📂 Tải File JSON</span></div>
+      <div class="upload-area">
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="fileInput" accept=".json" onchange="handleFile(this.files[0])" />
+          <div class="drop-icon">📄</div>
+          <div class="drop-text"><strong>Chọn hoặc kéo thả</strong><br />file JSON vào đây<br /><span style="font-size:11px;opacity:0.6;margin-top:4px;display:block">labeled_results_all_v6.json</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="filterPanel" style="display:none">
+      <div class="panel-header"><span>🔍 Bộ lọc</span></div>
+      <div class="filters">
+        <div class="filter-group">
+          <label>Tiêu chí</label>
+          <select id="filterCriteria" onchange="applyFilters()">
+            <option value="">Tất cả tiêu chí</option>
+            <option value="Food quality">🍽 Food quality</option>
+            <option value="Price">💰 Price</option>
+            <option value="Service quality">👷 Service quality</option>
+            <option value="Atmosphere">✨ Atmosphere</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Giá trị nhãn</label>
+          <div class="chip-group" id="valueChips">
+            <span class="chip chip-all active" onclick="selectChip(this,'all')">Tất cả</span>
+            <span class="chip chip-0" onclick="selectChip(this,'0')">0 – Tiêu cực</span>
+            <span class="chip chip-05" onclick="selectChip(this,'0.5')">0.5 – Trung lập</span>
+            <span class="chip chip-1" onclick="selectChip(this,'1')">1 – Tích cực</span>
+          </div>
+        </div>
+        <div class="filter-group">
+          <label>Trạng thái</label>
+          <div class="chip-group">
+            <span class="chip chip-all active" id="modChipAll" onclick="setModFilter(this,false)">Tất cả</span>
+            <span class="chip chip-05" id="modChipMod" onclick="setModFilter(this,true)">✏️ Đã sửa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="distPanel" style="display:none">
+      <div class="panel-header"><span>📊 Phân bố nhãn</span></div>
+      <div class="progress-section" id="distContent"></div>
+    </div>
+
+    <div class="panel" id="changesPanel" style="display:none">
+      <div class="panel-header">
+        <span>✏️ Lịch sử sửa</span>
+        <button class="btn btn-ghost" style="padding:2px 8px;font-size:11px;" onclick="clearLog()">Xóa log</button>
+      </div>
+      <div class="changes-log" id="changesLog">
+        <div class="change-empty">Chưa có chỉnh sửa nào</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-area">
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input id="searchBox" type="text" placeholder="Tìm nội dung review, tên nhà hàng…" oninput="applyFilters()" />
+        </div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#f472b6"></div>Food</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#38bdf8"></div>Price</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>Service</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div>Atmo</div>
+        </div>
+      </div>
+      <div class="toolbar-right">
+        <div class="page-info" id="pageInfo">Chưa có dữ liệu</div>
+      </div>
+    </div>
+
+    <div class="results-grid" id="resultsGrid">
+      <div class="empty-state">
+        <div class="empty-icon">📂</div>
+        <div class="empty-title">Chưa tải dữ liệu</div>
+        <div class="empty-sub">Kéo thả hoặc chọn file <code>labeled_results_all_v6.json</code> từ sidebar</div>
+      </div>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </main>
+</div>
+
+<script>
+  let allData = [];
+  let filteredData = [];
+  let changes = {};
+  let changeLog = [];
+  let currentPage = 1;
+  const PAGE_SIZE = 20;
+  let filterCriteria = '';
+  let filterValue = 'all';
+  let filterModified = false;
+
+  // ── FILE ─────────────────────────────────────────
+  function handleFile(file) {
+    if (!file) return;
+    document.getElementById('loadingOverlay').style.display = 'flex';
+    document.getElementById('loadingProgress').textContent = 'Đọc file…';
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        allData = JSON.parse(e.target.result);
+        document.getElementById('loadingProgress').textContent = allData.length + ' mục đã tải';
+        setTimeout(() => { document.getElementById('loadingOverlay').style.display = 'none'; initUI(); }, 400);
+      } catch (err) {
+        document.getElementById('loadingOverlay').style.display = 'none';
+        showToast('❌ Lỗi JSON: ' + err.message, 'error');
+      }
+    };
+    reader.readAsText(file, 'utf-8');
+  }
+
+  const dz = document.getElementById('dropZone');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('drag-over');
+    const f = e.dataTransfer.files[0];
+    if (f && f.name.endsWith('.json')) handleFile(f);
+  });
+
+  // ── INIT ─────────────────────────────────────────
+  function initUI() {
+    ['filterPanel','distPanel','changesPanel','statsBar'].forEach(id => document.getElementById(id).style.display = '');
+    ['exportBtn','resetBtn'].forEach(id => document.getElementById(id).style.display = '');
+    updateStats(); buildDist(); applyFilters();
+  }
+
+  // ── STATS ─────────────────────────────────────────
+  function updateStats() {
+    document.getElementById('statTotal').textContent = allData.length;
+    document.getElementById('statFood').textContent = allData.filter(d => getVal(d,'Food quality') === 0.5).length;
+    document.getElementById('statAtmo').textContent = allData.filter(d => getVal(d,'Atmosphere') === 0.5).length;
+    document.getElementById('statChanged').textContent = Object.keys(changes).length;
+  }
+
+  function getVal(item, name) {
+    if (changes[item.index] && changes[item.index][name] !== undefined) return changes[item.index][name];
+    const l = item.labels.find(l => l.name === name);
+    return l ? l.value : null;
+  }
+
+  // ── DISTRIBUTION ──────────────────────────────────
+  function buildDist() {
+    const cList = ['Food quality', 'Price', 'Service quality', 'Atmosphere'];
+    const colors = {'Food quality':'#f472b6','Price':'#38bdf8','Service quality':'#34d399','Atmosphere':'#a78bfa'};
+    const n = allData.length;
+    let html = '';
+    cList.forEach(c => {
+      const v0 = allData.filter(d => getVal(d,c) === 0).length;
+      const v05 = allData.filter(d => getVal(d,c) === 0.5).length;
+      const v1 = allData.filter(d => getVal(d,c) === 1).length;
+      const pct = v => n > 0 ? (v/n*100).toFixed(1) : '0';
+      const pw = v => n > 0 ? Math.round(v/n*100) : 0;
+      html += `<div class="progress-item">
+        <div style="font-size:12px;font-weight:700;color:${colors[c]};margin-bottom:5px">${c}</div>
+        <div class="dist-nums">
+          <span style="color:#f87171">0: ${pct(v0)}% (${v0})</span>
+          <span style="color:#6b7280">·</span>
+          <span style="color:#fbbf24">0.5: ${pct(v05)}% (${v05})</span>
+          <span style="color:#6b7280">·</span>
+          <span style="color:#34d399">1: ${pct(v1)}% (${v1})</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div style="width:${pw(v0)}%;background:#ef4444;border-radius:4px"></div>
+          <div style="width:${pw(v05)}%;background:#f59e0b;border-radius:4px"></div>
+          <div style="width:${pw(v1)}%;background:#10b981;border-radius:4px"></div>
+        </div>
+      </div>`;
+    });
+    document.getElementById('distContent').innerHTML = html;
+  }
+
+  // ── FILTER ────────────────────────────────────────
+  function applyFilters() {
+    const q = document.getElementById('searchBox').value.toLowerCase().trim();
+    filterCriteria = document.getElementById('filterCriteria').value;
+    filteredData = allData.filter(item => {
+      if (q) {
+        const txt = ((item.original_data?.textTranslated || '') + ' ' + (item.original_data?.title || '')).toLowerCase();
+        if (!txt.includes(q)) return false;
+      }
+      if (filterModified && !changes[item.index]) return false;
+      if (filterValue !== 'all') {
+        const val = parseFloat(filterValue);
+        if (filterCriteria) {
+          if (getVal(item, filterCriteria) !== val) return false;
+        } else {
+          if (!item.labels.some(l => getVal(item, l.name) === val)) return false;
+        }
+      } else if (filterCriteria) {
+        if (!item.labels.some(l => l.name === filterCriteria)) return false;
+      }
+      return true;
+    });
+    currentPage = 1;
+    renderPage(); renderPagination();
+    document.getElementById('pageInfo').textContent = filteredData.length + ' mục';
+  }
+
+  function selectChip(el, val) {
+    document.querySelectorAll('#valueChips .chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active'); filterValue = val; applyFilters();
+  }
+
+  function setModFilter(el, val) {
+    filterModified = val;
+    document.getElementById('modChipAll').classList.toggle('active', !val);
+    document.getElementById('modChipMod').classList.toggle('active', val);
+    applyFilters();
+  }
+
+  // ── RENDER ────────────────────────────────────────
+  function renderPage() {
+    const grid = document.getElementById('resultsGrid');
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const slice = filteredData.slice(start, start + PAGE_SIZE);
+    if (!slice.length) {
+      grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🔎</div><div class="empty-title">Không tìm thấy</div><div class="empty-sub">Thử thay đổi bộ lọc</div></div>`;
+      return;
+    }
+    grid.innerHTML = slice.map(item => cardHtml(item)).join('');
+  }
+
+  function cardHtml(item) {
+    const mod = !!changes[item.index];
+    const text = item.original_data?.textTranslated || '';
+    const long = text.length > 185;
+    const nameMap = {'Food quality':'food','Price':'price','Service quality':'service','Atmosphere':'atmosphere'};
+    const hlMap = {'Food quality':'hl-food','Atmosphere':'hl-atmo'};
+    const labelsHtml = item.labels.map(l => {
+      const v = getVal(item, l.name);
+      const nm = nameMap[l.name] || '';
+      const hl = hlMap[l.name] || '';
+      const a = (x) => v === x ? 'active' : '';
+      return `<div class="label-item ${hl}">
+        <div class="label-name ${nm}">${l.name}</div>
+        <div class="val-btns">
+          <button class="val-btn val-btn-0 ${a(0)}" onclick="changeLabel(${item.index},'${l.name}',0)">0</button>
+          <button class="val-btn val-btn-05 ${a(0.5)}" onclick="changeLabel(${item.index},'${l.name}',0.5)">0.5</button>
+          <button class="val-btn val-btn-1 ${a(1)}" onclick="changeLabel(${item.index},'${l.name}',1)">1</button>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="review-card ${mod ? 'modified' : ''}" id="card-${item.index}">
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-index">#${item.index}</div>
+          <div class="card-title" title="${esc(item.original_data?.title||'')}">${esc(item.original_data?.title||'N/A')}</div>
+          <div class="card-date">📅 ${item.original_data?.publishedAtDate||''}</div>
+        </div>
+        ${mod ? '<span class="modified-badge">✏️ Đã sửa</span>' : ''}
+      </div>
+      <div class="card-text${long?'':' expanded'}" id="ctext-${item.index}">${esc(text)}</div>
+      ${long ? `<button class="read-more" onclick="toggleText(${item.index},this)">▼ Xem thêm</button>` : ''}
+      ${item.reasoning ? `<div class="card-reasoning">💭 ${esc(item.reasoning)}</div>` : ''}
+      <div class="labels-grid">${labelsHtml}</div>
+    </div>`;
+  }
+
+  function toggleText(idx, btn) {
+    const el = document.getElementById('ctext-' + idx);
+    el.classList.toggle('expanded');
+    btn.textContent = el.classList.contains('expanded') ? '▲ Thu gọn' : '▼ Xem thêm';
+  }
+
+  function esc(s) {
+    return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── PAGINATION ────────────────────────────────────
+  function renderPagination() {
+    const total = Math.ceil(filteredData.length / PAGE_SIZE);
+    const el = document.getElementById('pagination');
+    if (total <= 1) { el.innerHTML = ''; return; }
+    let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
+    pageRange(currentPage, total).forEach(p => {
+      html += p === '…'
+        ? `<span style="color:var(--text-muted);padding:0 4px">…</span>`
+        : `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+    });
+    html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===total?'disabled':''}>›</button>`;
+    el.innerHTML = html;
+  }
+
+  function pageRange(cur, total) {
+    if (total <= 7) return Array.from({length:total},(_,i)=>i+1);
+    const r = [1];
+    if (cur > 3) r.push('…');
+    for (let i = Math.max(2,cur-1); i <= Math.min(total-1,cur+1); i++) r.push(i);
+    if (cur < total-2) r.push('…');
+    r.push(total);
+    return r;
+  }
+
+  function goPage(p) {
+    const total = Math.ceil(filteredData.length / PAGE_SIZE);
+    if (p < 1 || p > total) return;
+    currentPage = p;
+    renderPage(); renderPagination();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // ── CHANGE LABEL ──────────────────────────────────
+  function changeLabel(idx, name, newVal) {
+    const item = allData.find(d => d.index === idx);
+    if (!item) return;
+    const oldVal = getVal(item, name);
+    if (oldVal === newVal) return;
+    if (!changes[idx]) changes[idx] = {};
+    changes[idx][name] = newVal;
+    changeLog.unshift({idx, name, oldVal, newVal, t: new Date()});
+    // Re-render card
+    const el = document.getElementById('card-' + idx);
+    if (el) el.outerHTML = cardHtml(item);
+    updateStats(); buildDist(); updateLog();
+    showToast(`✅ #${idx} · ${name}: ${oldVal} → ${newVal}`, 'success');
+  }
+
+  // ── LOG ───────────────────────────────────────────
+  function updateLog() {
+    const el = document.getElementById('changesLog');
+    if (!changeLog.length) { el.innerHTML = '<div class="change-empty">Chưa có chỉnh sửa nào</div>'; return; }
+    const vc = v => v===0?'#f87171':v===0.5?'#fbbf24':'#34d399';
+    el.innerHTML = changeLog.slice(0,60).map(c => `
+      <div class="change-item">
+        <div class="change-dot" style="background:${vc(c.newVal)}"></div>
+        <div class="change-info">
+          <div class="change-idx">#${c.idx} · ${c.t.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}</div>
+          <div style="color:var(--text-secondary);font-size:12px">${c.name}: <span style="color:${vc(c.oldVal)}">${c.oldVal}</span> → <span style="color:${vc(c.newVal)}">${c.newVal}</span></div>
+        </div>
+      </div>`).join('');
+  }
+
+  function clearLog() { changeLog = []; updateLog(); }
+
+  // ── EXPORT ────────────────────────────────────────
+  function exportData() {
+    const out = allData.map(item => {
+      const ch = changes[item.index];
+      if (!ch) return item;
+      return {...item, labels: item.labels.map(l => ({...l, value: ch[l.name] !== undefined ? ch[l.name] : l.value}))};
+    });
+    const blob = new Blob([JSON.stringify(out, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const now = new Date();
+    a.href = url;
+    a.download = `labeled_reviewed_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}.json`;
+    a.click(); URL.revokeObjectURL(url);
+    showToast(`⬇ Đã xuất ${out.length} mục!`, 'success');
+  }
+
+  // ── RESET ─────────────────────────────────────────
+  function resetChanges() {
+    if (!confirm('Reset toàn bộ chỉnh sửa?')) return;
+    changes = {}; changeLog = [];
+    updateStats(); buildDist(); updateLog(); renderPage();
+    showToast('↺ Đã reset tất cả', 'error');
+  }
+
+  // ── TOAST ─────────────────────────────────────────
+  let toastTimer;
+  function showToast(msg, type='') {
+    document.querySelectorAll('.toast').forEach(t => t.remove());
+    const t = document.createElement('div');
+    t.className = 'toast ' + type; t.textContent = msg;
+    document.body.appendChild(t);
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.remove(), 2800);
+  }
+</script>
+</body>
+</html>
