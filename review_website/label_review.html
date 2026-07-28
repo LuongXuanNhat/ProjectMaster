@@ -472,12 +472,19 @@
 
   // ── FILTER ────────────────────────────────────────
   function applyFilters() {
-    const q = document.getElementById('searchBox').value.toLowerCase().trim();
+    const q = document.getElementById('searchBox').value.trim();
     filterCriteria = document.getElementById('filterCriteria').value;
     filteredData = allData.filter(item => {
       if (q) {
-        const txt = ((item.original_data?.textTranslated || '') + ' ' + (item.original_data?.title || '')).toLowerCase();
-        if (!txt.includes(q)) return false;
+        // Nếu gõ #<số> thì tìm theo index
+        const idxMatch = q.match(/^#(\d+)$/);
+        if (idxMatch) {
+          if (item.index !== parseInt(idxMatch[1], 10)) return false;
+        } else {
+          const ql = q.toLowerCase();
+          const txt = ((item.original_data?.textTranslated || '') + ' ' + (item.original_data?.title || '')).toLowerCase();
+          if (!txt.includes(ql)) return false;
+        }
       }
       if (filterModified && !changes[item.index]) return false;
       if (filterValue !== 'all') {
